@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     "rest_framework_simplejwt",
+
+    "users",
 ]
 
 REST_FRAMEWORK = {
@@ -56,7 +58,7 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),  # Format du header Authorization: Bearer <token>
 }
 
-AUTH_USER_MODEL = "users.data.models.User"
+AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
