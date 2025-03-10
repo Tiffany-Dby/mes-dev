@@ -5,8 +5,8 @@ from typing import Optional, List
 class UserService:
 
     @staticmethod
-    def add(firstName: str, lastName: str, email: str, isAdmin: bool, password: str) -> Optional[User]:
-        return UserRepo.add(firstName, lastName, email, isAdmin, password)
+    def add(firstName: str, lastName: str, email: str, password: str) -> Optional[User]:
+        return UserRepo.add(firstName, lastName, email, password)
 
     @staticmethod
     def get(id: int) -> Optional[User]:
@@ -37,5 +37,5 @@ class UserService:
         return UserRepo.delete(id)
 
     @staticmethod
-    def checkPassword(id: int, password: str) -> Optional[User]:
+    def checkPassword(id: int, password: str) -> bool:
         return UserRepo.checkPassword(id, password)

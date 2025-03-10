@@ -6,11 +6,11 @@ from utils.bcrypt import genSalt, encrypt
 class UserRepo:
     
     @staticmethod
-    def add(firstName: str, lastName: str, email: str, isAdmin: bool, password: str) -> Optional[User]:
+    def add(firstName: str, lastName: str, email: str, password: str) -> Optional[User]:
         salt = genSalt()
         hashedPass = encrypt(password, salt)
         try:
-            user = User.objects.create(firstName=firstName, lastName=lastName, isAdmin=isAdmin, email=email)
+            user = User.objects.create(firstName=firstName, lastName=lastName, email=email)
             if user:
                 cred = UserCredential.objects.create(user=user, salt=salt, password=hashedPass)
                 if cred:
@@ -110,14 +110,14 @@ class UserRepo:
                 return False
 
     @staticmethod
-    def checkPassword(id: int, password: str) -> Optional[User]:
+    def checkPassword(id: int, password: str) -> bool:
         try:
             user = User.objects.get(id=id)
             if user:
                 cred = UserCredential.objects.get(user=user)
                 if cred.password == encrypt(password, cred.salt):
-                    return user
+                    return True
         except Exception as e:
             print(e)
 
-        return None
+        return False
