@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mesdev_db
+      MYSQL_USER: mesdev
+      MYSQL_PASSWORD: mesdev
+    volumes:
+      - mesdev-db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+
+volumes:
+  mesdev-db-data:
