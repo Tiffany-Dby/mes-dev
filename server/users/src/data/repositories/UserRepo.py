@@ -1,3 +1,4 @@
+from typing import Optional, List
 from users.src.data.models.User import User
 from users.src.data.models.UserCredential import UserCredential
 from utils.bcrypt import genSalt, encrypt
@@ -5,7 +6,7 @@ from utils.bcrypt import genSalt, encrypt
 class UserRepo:
     
     @staticmethod
-    def add(firstName: str, lastName: str, email: str, isAdmin: bool, password: str) -> User:
+    def add(firstName: str, lastName: str, email: str, isAdmin: bool, password: str) -> Optional[User]:
         salt = genSalt()
         hashedPass = encrypt(password, salt)
         try:
@@ -22,7 +23,7 @@ class UserRepo:
         return None
     
     @staticmethod
-    def get(id: int) -> User:
+    def get(id: int) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
             if user:
@@ -33,7 +34,7 @@ class UserRepo:
         return None
     
     @staticmethod
-    def getByEmail(email: str) -> User:
+    def getByEmail(email: str) -> Optional[User]:
         try:
             user = User.objects.get(email=email)
             if user:
@@ -44,7 +45,7 @@ class UserRepo:
         return None
     
     @staticmethod
-    def getAll() -> list[User]:
+    def getAll() -> Optional[List[User]]:
         try:
             users = User.objects.all()
             if users:
@@ -55,7 +56,7 @@ class UserRepo:
         return None
     
     @staticmethod
-    def getAllByAdmin() -> list[User]:
+    def getAllByAdmin() -> Optional[List[User]]:
         try:
             users = User.objects.filter(isAdmin=True)
             if users:
@@ -66,7 +67,7 @@ class UserRepo:
         return None
     
     @staticmethod
-    def update(id: int, firstName: str, lastName: str, email: str) -> User:
+    def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
             if user:
@@ -81,7 +82,7 @@ class UserRepo:
         return None
         
     @staticmethod
-    def updatePassword(id: int, password: str) -> User:
+    def updatePassword(id: int, password: str) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
             cred = UserCredential.objects.get(user=user)
@@ -109,7 +110,7 @@ class UserRepo:
                 return False
 
     @staticmethod
-    def checkPassword(id: int, password: str) -> User:
+    def checkPassword(id: int, password: str) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
             if user:
