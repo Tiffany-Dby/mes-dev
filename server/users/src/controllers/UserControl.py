@@ -3,7 +3,7 @@ from users.src.services.UserService import UserService
 from users.src.data.models.User import User
 
 class UsersControl:
-    
+
     @staticmethod
     def get(id: int) -> Optional[User]:
         return UserService.get(id)
@@ -15,10 +15,6 @@ class UsersControl:
     @staticmethod
     def getAll() -> List[User]:
         return UserService.getAll()
-
-    @staticmethod
-    def getAllByAdmin() -> List[User]:
-        return UserService.getAllByAdmin()
 
     @staticmethod
     def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:

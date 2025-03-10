@@ -21,10 +21,6 @@ class UserService:
         return UserRepo.getAll()
 
     @staticmethod
-    def getAllByAdmin() -> Optional[List[User]]:
-        return UserRepo.getAllByAdmin()
-
-    @staticmethod
     def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:
         return UserRepo.update(id, firstName, lastName, email)
 
