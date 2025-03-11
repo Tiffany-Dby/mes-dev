@@ -25,13 +25,13 @@ class UpdatePasswordSchema(Schema):
 def get(request, id: int) -> Optional[User]:
     return UsersControl.get(id)
 
-@router.get("/getByEmail/{email}")
+@router.post("/getByEmail/{email}")
 def getByEmail(request, email: str) -> Optional[User]:
     return UsersControl.getByEmail(email)
 
-@router.get("/getAll")
-def getAll(request) -> Optional[List[User]]:
-    return UsersControl.getAll()
+# @router.get("/getAll")
+# def getAll(request) -> Optional[List[User]]:
+#     return UsersControl.getAll()
 
 @router.put("/update")
 def update(request, data: UpdateSchema) -> Optional[User]:
