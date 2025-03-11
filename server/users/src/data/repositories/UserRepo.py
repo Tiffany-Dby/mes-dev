@@ -1,7 +1,7 @@
 from typing import Optional, List
 from users.src.data.models.User import User
 from users.src.data.models.UserCredential import UserCredential
-from utils.bcrypt import genSalt, encrypt
+from utils.hashpass import genSalt, encrypt
 
 class UserRepo:
     
