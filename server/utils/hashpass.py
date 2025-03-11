@@ -14,21 +14,3 @@ def checkPass(password, salt, hashedPass):
         return True
     else:
         return False
-
-def isValidPassword(password: str) -> bool:
-    if len(password) < 8:
-        return False
-
-    if not re.search(r"\d", password):
-        return False
-
-    if not re.search(r"[A-Z]", password):
-        return False
-
-    if not re.search(r"[a-z]", password):
-        return False
-
-    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-        return False
-
-    return True
