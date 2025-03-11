@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from users.src.services.UserService import UserService
-from utils.hashpass import isValidPassword
+from utils.checkInfos import CheckInfos
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -16,17 +16,23 @@ class RegisterView(APIView):
 
         if not firstName or not lastName or not email or not password:
             return Response({"error": "Tous les champs sont requis"}, status=400)
+        
+        if not CheckInfos.isValideString(firstName) or not CheckInfos.isValideString(lastName):
+            return Response({"error": "firstName or lastName invalid"}, status=400)
+        
+        if not CheckInfos.isEmail(email):
+            return Response({"error": "email invalid"}, status=400)
+        
+        if not CheckInfos.isValidPassword(password):
+            return Response({"error": "password don't respect the rules"}, status=400)
 
         if UserService.getByEmail(email):
             return Response({"error": "Cet email est déjà utilisé"}, status=400)
-
-        if not isValidPassword(password):
-            user = UserService.add(firstName, lastName, email, password)
-            if not user:
-                return Response({"error": "Une erreur est survenue"}, status=500)
-            return Response({"message": "Utilisateur créé avec succès"}, status=201)
-        else:
-            return Response({"Le mot de passe ne respecte pas les règles"}, status=400)
+        
+        user = UserService.add(firstName, lastName, email, password)
+        if not user:
+            return Response({"error": "Une erreur est survenue"}, status=500)
+        return Response({"message": "Utilisateur créé avec succès"}, status=201)
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
