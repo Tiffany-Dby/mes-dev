@@ -15,8 +15,9 @@ SECRET_KEY = 'django-insecure--yxy!b#=a-3!nm=+*xop!m$ae$tgzbscseufd*f8-(+bw8x8&_
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'mesdevapi.loca.lt'
+    'mesdevapi.loca.lt',
     '127.0.0.1',
+    'localhost',
 ]
 
 
