@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from users.src.services.UserService import UserService
+from utils.hashpass import isValidPassword
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -19,10 +20,13 @@ class RegisterView(APIView):
         if UserService.getByEmail(email):
             return Response({"error": "Cet email est déjà utilisé"}, status=400)
 
-        user = UserService.add(firstName, lastName, email, password)
-        if not user:
-            return Response({"error": "Une erreur est survenue"}, status=500)
-        return Response({"message": "Utilisateur créé avec succès"}, status=201)
+        if not isValidPassword(password):
+            user = UserService.add(firstName, lastName, email, password)
+            if not user:
+                return Response({"error": "Une erreur est survenue"}, status=500)
+            return Response({"message": "Utilisateur créé avec succès"}, status=201)
+        else:
+            return Response({"Le mot de passe ne respecte pas les règles"}, status=400)
 
 class LoginView(APIView):
     permission_classes = [AllowAny]

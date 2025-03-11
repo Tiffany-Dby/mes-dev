@@ -1,6 +1,7 @@
 from typing import Optional, List
 from users.src.services.UserService import UserService
 from users.src.data.models.User import User
+from utils.hashpass import isValidPassword
 
 class UsersControl:
 
@@ -22,6 +23,8 @@ class UsersControl:
 
     @staticmethod
     def updatePassword(id: int, password: str) -> Optional[User]:
+        if not isValidPassword(password):
+            return "Invalid password"
         return UserService.updatePassword(id, password)
 
     @staticmethod
