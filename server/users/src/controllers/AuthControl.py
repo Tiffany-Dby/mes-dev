@@ -8,19 +8,19 @@ class AuthControl:
     @staticmethod
     def register(data):
         if not CheckInfos.isValideString(data.firstName) or not CheckInfos.isValideString(data.lastName):
-            return {"error: firstName or lastName invalid", 400}
+            return "error: firstName or lastName invalid"
 
         if not CheckInfos.isValidPassword(data.password):
-            return {"error: password doesn't respect the rules", 400}
+            return "error: password doesn't respect the rules"
 
         if UserService.getByEmail(data.email):
-            return {"error: Cet email est déjà utilisé", 400}
+            return "error: Cet email est déjà utilisé"
 
         user = UserService.add(data.firstName, data.lastName, data.email, data.password)
         if not user:
-            return {"error: Une erreur est survenue", 500}
+            return "error: Une erreur est survenue"
 
-        return {"message: Utilisateur créé avec succès", 201}
+        return "message: Utilisateur créé avec succès"
 
     @staticmethod
     def login(data):
@@ -32,13 +32,13 @@ class AuthControl:
                 "refresh": str(refresh),
                 "user": user.to_json(),
             }
-        return {"error: Identifiants invalides", 400}
+        return "error: Identifiants invalides"
 
     @staticmethod
     def logout(data):
         try:
             token = RefreshToken(data.refresh)
             token.blacklist()
-            return {"message": "Déconnexion réussie"}
+            return "message: Déconnexion réussie"
         except Exception:
-            return {"error": "Token invalide"}, 400
+            return "error: Token invalide"
