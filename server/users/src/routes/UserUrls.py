@@ -37,11 +37,11 @@ def getByEmail(request, email: str) -> Optional[User]:
 
 @router.put("/update", auth=JWTAuth())
 def update(request, data: UpdateSchema) -> Optional[User]:
-    return UsersControl.update(data.id, data.firstName, data.lastName, data.email)
+    return UsersControl.update(data)
 
 @router.put("/updatePassword", auth=JWTAuth())
 def updatePassword(request, data: UpdatePasswordSchema) -> Optional[User]:
-    return UsersControl.updatePassword(data.id, data.password)
+    return UsersControl.updatePassword(data)
 
 @router.delete("/delete/{id}", auth=JWTAuth())
 def delete(request, id: int) -> bool:
