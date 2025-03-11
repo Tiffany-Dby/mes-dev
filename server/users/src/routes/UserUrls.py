@@ -1,9 +1,8 @@
 from ninja import Router, ModelSchema, Schema
 from ninja_jwt.authentication import JWTAuth
-from typing import Optional, List
+from typing import Optional
 from users.src.controllers.UserControl import UsersControl
 from users.src.data.models.User import User
-from rest_framework.permissions import AllowAny, IsAuthenticated
 
 router = Router()
 
