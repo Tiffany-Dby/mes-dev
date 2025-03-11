@@ -16,6 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'mesdevapi.loca.lt'
+    '127.0.0.1',
 ]
 
 

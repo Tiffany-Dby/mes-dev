@@ -20,7 +20,7 @@ class AuthControl:
         if not user:
             return "error: Une erreur est survenue"
 
-        return "message: Utilisateur créé avec succès"
+        return "Utilisateur créé avec succès"
 
     @staticmethod
     def login(data):
