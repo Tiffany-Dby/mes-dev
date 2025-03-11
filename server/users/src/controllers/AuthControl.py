@@ -42,7 +42,8 @@ class LoginView(APIView):
                     refresh = RefreshToken.for_user(user)
                     return Response({
                         "access": str(refresh.access_token),
-                        "refresh": str(refresh)
+                        "refresh": str(refresh),
+                        "user": user.to_json()
                     }, status=200)
             
         except Exception as e:
