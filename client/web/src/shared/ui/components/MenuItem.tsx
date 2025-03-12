@@ -4,13 +4,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/lib/components/ui/collapsible";
-import { Routes } from "@/shared/types/Routes";
+import { AppRoutes } from "@/shared/types/Routes";
 import { Fragment, useState } from "react";
 import { NavLink } from "react-router";
 
 interface MenuItem {
   label: string;
-  href?: Routes;
+  href?: AppRoutes;
   icon?: React.ComponentType<{ className?: string }>;
   submenu?: MenuItem[];
 }
