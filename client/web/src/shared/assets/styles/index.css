@@ -68,23 +68,24 @@
     hsl(250, 60%, 32%) 100%
   );
   /* Shadcn */
-  /* 
-  --background: hsl(0, 0%, 100%);
+
+  /* --background: hsl(0, 0%, 100%);
   --foreground: hsl(252, 62%, 15%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(252, 62%, 15%);
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(252, 62%, 15%);
   --primary: hsl(250, 60%, 32%);
   --primary-foreground: hsl(0 0% 98%);
   --secondary: hsl(209, 100%, 50%);
   --secondary-foreground: hsl(208, 68%, 98%);
-  --muted: hsl(240 4.8% 95.9%);
-  --muted-foreground: hsl(240 3.8% 46.1%);
   --accent: hsl(25, 100%, 50%);
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: hsl(0 0% 98%);
+  --destructive-foreground: hsl(0 0% 98%); */
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(252, 62%, 15%);
+  --muted: hsl(240 4.8% 95.9%);
+  --muted-foreground: hsl(240 3.8% 46.1%);
   --border: hsl(240 5.9% 90%);
   --input: hsl(240 5.9% 90%);
   --ring: hsl(240 10% 3.9%);
@@ -93,7 +94,6 @@
   --chart-3: hsl(197 37% 24%);
   --chart-4: hsl(43 74% 66%);
   --chart-5: hsl(27 87% 67%);
-  */
   --radius: 0.6rem;
 }
 
