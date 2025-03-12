@@ -11,19 +11,19 @@ class AuthControl:
         if not CheckInfos.is_valid_string(
             data.firstName
         ) or not CheckInfos.is_valid_string(data.lastName):
-            raise HttpError(500, "firstName or lastName invalid")
+            raise HttpError(400, "firstName or lastName invalid")
 
         if data.password != data.confirmPassword:
-            raise HttpError(500, "passwords don't match")
+            raise HttpError(400, "passwords don't match")
 
         if not CheckInfos.is_email(data.email):
-            raise HttpError(500, "Invalid email")
+            raise HttpError(400, "Invalid email")
 
         if not CheckInfos.is_valid_password(data.password):
-            raise HttpError(500, "password invalid")
+            raise HttpError(400, "password invalid")
 
         if UserService.get_by_email(data.email):
-            raise HttpError(500, "email already exists")
+            raise HttpError(409, "email already exists")
 
         user = UserService.add(data.firstName, data.lastName, data.email, data.password)
         if not user:
@@ -41,7 +41,7 @@ class AuthControl:
                 "refresh": str(refresh),
                 "user": user.to_json(),
             }
-        raise HttpError(500, "email or password invalid")
+        raise HttpError(401, "email or password invalid")
 
     @staticmethod
     def logout(data):
