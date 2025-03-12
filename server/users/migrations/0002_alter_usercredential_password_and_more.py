@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='usercredential',
-            name='password',
+            model_name="usercredential",
+            name="password",
             field=models.BinaryField(max_length=100),
         ),
         migrations.AlterField(
-            model_name='usercredential',
-            name='salt',
+            model_name="usercredential",
+            name="salt",
             field=models.BinaryField(max_length=100),
         ),
     ]
