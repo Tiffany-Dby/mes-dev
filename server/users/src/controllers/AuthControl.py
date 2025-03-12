@@ -13,6 +13,9 @@ class AuthControl:
         
         if data.password != data.confirmPassword:
             raise  HttpError(500, "passwords don't match")
+        
+        if not CheckInfos.isEmail(data.email):
+            raise HttpError(500, "Invalid email")
 
         if not CheckInfos.isValidPassword(data.password):
             raise HttpError(500, "password invalid")
