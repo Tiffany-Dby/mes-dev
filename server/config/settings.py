@@ -18,6 +18,8 @@ ALLOWED_HOSTS = [
     'mesdevapi.loca.lt',
     '127.0.0.1',
     'localhost',
+    'localhost:5173',
+    '127.0.0.1:5173',
 ]
 
 
