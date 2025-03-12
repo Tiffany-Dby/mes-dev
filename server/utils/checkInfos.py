@@ -1,8 +1,8 @@
-from pydantic import EmailStr
 import re
 
-class CheckInfos():
-    
+
+class CheckInfos:
+
     @staticmethod
     def isEmail(email: str) -> bool:
         email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -14,7 +14,7 @@ class CheckInfos():
             return True
         else:
             return False
-        
+
     @staticmethod
     def isValideId(id: int) -> bool:
         if id > 0:

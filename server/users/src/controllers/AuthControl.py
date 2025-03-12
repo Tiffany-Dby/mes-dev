@@ -8,12 +8,14 @@ class AuthControl:
 
     @staticmethod
     def register(data):
-        if not CheckInfos.isValideString(data.firstName) or not CheckInfos.isValideString(data.lastName):
-            raise  HttpError(500, "firstName or lastName invalid")
-        
+        if not CheckInfos.isValideString(
+            data.firstName
+        ) or not CheckInfos.isValideString(data.lastName):
+            raise HttpError(500, "firstName or lastName invalid")
+
         if data.password != data.confirmPassword:
-            raise  HttpError(500, "passwords don't match")
-        
+            raise HttpError(500, "passwords don't match")
+
         if not CheckInfos.isEmail(data.email):
             raise HttpError(500, "Invalid email")
 

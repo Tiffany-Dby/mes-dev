@@ -2,6 +2,7 @@ from users.src.data.repositories.UserRepo import UserRepo
 from users.src.data.models.User import User
 from typing import Optional, List
 
+
 class UserService:
 
     @staticmethod
