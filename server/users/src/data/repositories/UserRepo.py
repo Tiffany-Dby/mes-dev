@@ -1,7 +1,7 @@
 from typing import Optional, List
 from users.src.data.models.User import User
 from users.src.data.models.UserCredential import UserCredential
-from utils.hashpass import genSalt, encrypt
+from utils.hashpass import genSalt, encrypt, checkPass
 
 class UserRepo:
     
@@ -104,8 +104,7 @@ class UserRepo:
             user = User.objects.get(id=id)
             if user:
                 cred = UserCredential.objects.get(user=user)
-                if cred.password == encrypt(password, cred.salt):
-                    return True
+                return checkPass(password, cred.salt, cred.password)
         except Exception as e:
             print(e)
 
