@@ -6,6 +6,6 @@ export enum AppRoutes {
 }
 
 export enum ApiRoutes {
-  url = "",
+  url = "http://localhost:8000",
   signUp = "/api/auth/register",
 }

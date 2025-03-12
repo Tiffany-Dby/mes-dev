@@ -13,14 +13,14 @@ const getRequest = async <T>(
   return await request<T>(url, config);
 };
 
-const postRequest = async <T>(
+const postRequest = async <T, B extends object>(
   url: string,
-  body: Record<string, unknown>
+  body: B
 ): Promise<{ result: T; error: string | null; status: number }> => {
   const config: FetchConfig = {
     method: FetchMethod.POST,
     headers: {
-      "Content-Type": "application/json",
+      "Content-type": "application/json",
       Accept: "application/json",
     },
     body: JSON.stringify(body),
@@ -42,10 +42,12 @@ const request = async <T>(
 
     status = response.status;
     result = await response.json();
+    console.log(result);
+    console.log(response);
 
     if (status >= 400)
       throw new Error(
-        `Error ${status}: ${result?.message || "Something went wrong"}`
+        `Error ${status}: ${result?.detail || "Something went wrong"}`
       );
   } catch (err) {
     if (err instanceof Error) error = err.message;

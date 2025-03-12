@@ -5,8 +5,8 @@ import { SignUpData } from "@/users/types/SignUp";
 
 const useSignUp = () => {
   const [signUpForm, setSignUpForm] = useState<SignUpData>({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -31,17 +31,25 @@ const useSignUp = () => {
     setSignUpError(null);
     setSignUpSuccess(false);
 
+    for (const key in signUpForm) {
+      if (!signUpForm[key as keyof SignUpData].trim()) {
+        setSignUpError("Tous les champs doivent être remplis");
+        setSignUpLoading(false);
+
+        return;
+      }
+    }
+
     if (signUpForm.password !== signUpForm.confirmPassword) {
       setSignUpError("Les mots de passe ne correspondent pas");
       setSignUpLoading(false);
+
       return;
     }
 
-    const { error } = await postRequest<{ message: string }>(
+    const { error } = await postRequest<{ message: string }, SignUpData>(
       ApiRoutes.url + ApiRoutes.signUp,
-      {
-        signUpForm,
-      }
+      signUpForm
     );
     setSignUpLoading(false);
 
@@ -52,6 +60,13 @@ const useSignUp = () => {
     }
 
     setSignUpSuccess(true);
+    setSignUpForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   return {

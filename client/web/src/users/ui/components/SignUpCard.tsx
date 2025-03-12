@@ -15,6 +15,45 @@ const SignUpCard = () => {
     signUpError,
     signUpSuccess,
   } = useSignUp();
+
+  const signUpFields = [
+    {
+      label: "Prénom",
+      id: "firstName",
+      type: "text",
+      placeholder: "Prénom",
+      icon: CircleUserRoundIcon,
+    },
+    {
+      label: "Nom",
+      id: "lastName",
+      type: "text",
+      placeholder: "Nom",
+      icon: CircleUserRoundIcon,
+    },
+    {
+      label: "Email",
+      id: "email",
+      type: "email",
+      placeholder: "Email",
+      icon: MailIcon,
+    },
+    {
+      label: "Mot de passe",
+      id: "password",
+      type: "password",
+      placeholder: "Mot de passe",
+      icon: EyeOffIcon,
+    },
+    {
+      label: "Confirmer mot de passe",
+      id: "confirmPassword",
+      type: "password",
+      placeholder: "Confirmer mot de passe",
+      icon: EyeOffIcon,
+    },
+  ];
+
   return (
     <BaseCard
       title={<h1 className="text-4xl uppercase">Inscription</h1>}
@@ -28,61 +67,20 @@ const SignUpCard = () => {
       }
       content={
         <form className="flex flex-col gap-5" onSubmit={handleSignUpSubmit}>
-          <BaseInputGroup
-            label="Prénom"
-            isSrOnly={true}
-            type="text"
-            id="firstname"
-            name="firstname"
-            placeholder="Prénom"
-            icon={CircleUserRoundIcon}
-            value={signUpForm.firstname}
-            onChange={handleSignUpChange}
-          />
-          <BaseInputGroup
-            label="Nom"
-            isSrOnly={true}
-            type="text"
-            id="lastname"
-            name="lastname"
-            placeholder="Nom"
-            icon={CircleUserRoundIcon}
-            value={signUpForm.lastname}
-            onChange={handleSignUpChange}
-          />
-          <BaseInputGroup
-            label="Email"
-            isSrOnly={true}
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            icon={MailIcon}
-            value={signUpForm.email}
-            onChange={handleSignUpChange}
-          />
-          <BaseInputGroup
-            label="Mot de passe"
-            isSrOnly={true}
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Mot de passe"
-            icon={EyeOffIcon}
-            value={signUpForm.password}
-            onChange={handleSignUpChange}
-          />
-          <BaseInputGroup
-            label="Confirmer mot de passe"
-            isSrOnly={true}
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirmer mot de passe"
-            icon={EyeOffIcon}
-            value={signUpForm.confirmPassword}
-            onChange={handleSignUpChange}
-          />
+          {signUpFields.map(({ label, id, type, placeholder, icon }) => (
+            <BaseInputGroup
+              key={id}
+              label={label}
+              isSrOnly={true}
+              type={type}
+              id={id}
+              name={id}
+              placeholder={placeholder}
+              icon={icon}
+              value={signUpForm[id as keyof typeof signUpForm]}
+              onChange={handleSignUpChange}
+            />
+          ))}
           <div>
             <Button type="submit" className="w-full" disabled={signUpLoading}>
               {signUpLoading ? "Création du compte..." : "Je crée mon compte"}
