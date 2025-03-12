@@ -4,6 +4,7 @@ from users.src.data.models.User import User
 from utils.checkInfos import CheckInfos
 from ninja.errors import HttpError
 
+
 class UsersControl:
 
     @staticmethod
@@ -34,7 +35,9 @@ class UsersControl:
 
     @staticmethod
     def updatePassword(data) -> Optional[User]:
-        if not CheckInfos.isValideId(data.id) or not CheckInfos.isValidPassword(data.password):
+        if not CheckInfos.isValideId(data.id) or not CheckInfos.isValidPassword(
+            data.password
+        ):
             raise HttpError(500, "Invalid password")
         return UserService.updatePassword(data.id, data.password)
 
