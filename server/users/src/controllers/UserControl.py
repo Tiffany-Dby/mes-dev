@@ -12,34 +12,30 @@ class UsersControl:
         return UserService.get(id)
 
     @staticmethod
-    def getByEmail(email: str) -> Optional[User]:
-        if not CheckInfos.isEmail(email):
+    def get_by_email(email: str) -> Optional[User]:
+        if not CheckInfos.is_email(email):
             raise HttpError(500, "Invalid email")
-        return UserService.getByEmail(email)
-
-    @staticmethod
-    def getAll() -> List[User]:
-        return UserService.getAll()
+        return UserService.get_by_email(email)
 
     @staticmethod
     def update(data) -> Optional[User]:
-        if not CheckInfos.isValideId(data.id):
+        if not CheckInfos.is_valid_id(data.id):
             raise HttpError(500, "Invalid id")
-        if not CheckInfos.isValideString(data.firstName):
+        if not CheckInfos.is_valid_string(data.firstName):
             raise HttpError(500, "Invalid firstName")
-        if not CheckInfos.isValideString(data.lastName):
+        if not CheckInfos.is_valid_string(data.lastName):
             raise HttpError(500, "Invalid lastName")
-        if not CheckInfos.isEmail(data.email):
+        if not CheckInfos.is_email(data.email):
             raise HttpError(500, "Invalid email")
         return UserService.update(data.id, data.firstName, data.lastName, data.email)
 
     @staticmethod
-    def updatePassword(data) -> Optional[User]:
-        if not CheckInfos.isValideId(data.id) or not CheckInfos.isValidPassword(
+    def update_password(data) -> Optional[User]:
+        if not CheckInfos.is_valid_id(data.id) or not CheckInfos.is_valid_password(
             data.password
         ):
             raise HttpError(500, "Invalid password")
-        return UserService.updatePassword(data.id, data.password)
+        return UserService.update_password(data.id, data.password)
 
     @staticmethod
     def delete(id: int) -> bool:
