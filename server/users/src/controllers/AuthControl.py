@@ -31,9 +31,6 @@ class AuthControl:
 
     @staticmethod
     def login(data):
-        if not CheckInfos.isEmail(data.email):
-            raise HttpError(500, "Invalid email")
-        
         user = UserService.getByEmail(data.email)
         if user and UserService.checkPassword(user.id, data.password):
             refresh = RefreshToken.for_user(user)
