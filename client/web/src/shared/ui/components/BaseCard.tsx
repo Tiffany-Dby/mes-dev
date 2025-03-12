@@ -17,16 +17,14 @@ interface BaseCardProps {
 
 const BaseCard = ({ title, description, content, footer }: BaseCardProps) => {
   return (
-    <>
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent>{content}</CardContent>
-        <CardFooter>{footer}</CardFooter>
-      </Card>
-    </>
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
+      </CardHeader>
+      {content && <CardContent>{content}</CardContent>}
+      {footer && <CardFooter>{footer}</CardFooter>}
+    </Card>
   );
 };
 

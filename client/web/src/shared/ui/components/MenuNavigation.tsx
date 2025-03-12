@@ -12,7 +12,7 @@ import MenuBurger from "./MenuBurger";
 import { useState } from "react";
 import logoCyna from "@/shared/assets/images/logo-cyna.svg";
 import MenuItem from "./MenuItem";
-import { Routes } from "@/shared/types/Routes";
+import { AppRoutes } from "@/shared/types/Routes";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import {
   CircleUserRoundIcon,
@@ -28,12 +28,12 @@ const MenuNavigation = () => {
   const menuItems = [
     {
       label: "Accueil",
-      href: Routes.home,
+      href: AppRoutes.home,
       icon: HomeIcon,
     },
     {
       label: "Catégories",
-      href: Routes.categories,
+      href: AppRoutes.categories,
       icon: ShapesIcon,
     },
     {
@@ -42,13 +42,13 @@ const MenuNavigation = () => {
       submenu: [
         {
           label: "Mon compte1",
-          href: Routes.account,
+          href: AppRoutes.account,
         },
       ],
     },
     {
       label: "Panier",
-      href: Routes.checkout,
+      href: AppRoutes.checkout,
       icon: ShoppingCartIcon,
     },
   ];
