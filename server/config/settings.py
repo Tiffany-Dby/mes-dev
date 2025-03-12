@@ -46,11 +46,11 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # Durée de validité du token d'accès
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Durée du refresh token
-    "ROTATE_REFRESH_TOKENS": True,  # Génére un nouveau refresh token à chaque connexion
-    "BLACKLIST_AFTER_ROTATION": True,  # Désactive l'ancien refresh token après un renouvellement
-    "AUTH_HEADER_TYPES": ("Bearer",),  # Format du header Authorization: Bearer <token>
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 AUTH_USER_MODEL = "users.User"
