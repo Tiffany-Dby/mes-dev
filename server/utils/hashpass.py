@@ -1,5 +1,4 @@
 import bcrypt
-import re
 
 def genSalt():
     return bcrypt.gensalt()
