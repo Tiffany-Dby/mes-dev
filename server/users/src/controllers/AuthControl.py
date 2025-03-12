@@ -36,13 +36,13 @@ class AuthControl:
                 "refresh": str(refresh),
                 "user": user.to_json(),
             }
-        return "error: Identifiants invalides"
+        raise HttpError(500, "email or password invalid")
 
     @staticmethod
     def logout(data):
         try:
             token = RefreshToken(data.refresh)
             token.blacklist()
-            return "message: Déconnexion réussie"
+            return "logout successful"
         except Exception:
-            return "error: Token invalide"
+            raise HttpError(500, "invalid token")
