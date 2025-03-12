@@ -5,11 +5,8 @@ class CheckInfos():
     
     @staticmethod
     def isEmail(email: str) -> bool:
-        try:
-            EmailStr(email)
-            return True
-        except Exception:
-            return False
+        email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+        return bool(re.match(email_regex, email))
 
     @staticmethod
     def isValideString(string: str) -> bool:
