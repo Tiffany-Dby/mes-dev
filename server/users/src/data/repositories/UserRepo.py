@@ -1,14 +1,14 @@
 from typing import Optional, List
 from users.src.data.models.User import User
 from users.src.data.models.UserCredential import UserCredential
-from utils.hashpass import genSalt, encrypt, check_pass
+from utils.hashpass import gen_salt, encrypt, check_pass
 
 
 class UserRepo:
 
     @staticmethod
     def add(firstName: str, lastName: str, email: str, password: str) -> Optional[User]:
-        salt = genSalt()
+        salt = gen_salt()
         hashedPass = encrypt(password, salt)
         try:
             user = User.objects.create(
