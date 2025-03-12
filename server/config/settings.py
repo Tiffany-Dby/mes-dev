@@ -14,18 +14,13 @@ SECRET_KEY = 'django-insecure--yxy!b#=a-3!nm=+*xop!m$ae$tgzbscseufd*f8-(+bw8x8&_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'mesdevapi.loca.lt',
-    '127.0.0.1',
-    'localhost',
-    'localhost:5173',
-    '127.0.0.1:5173',
-]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
