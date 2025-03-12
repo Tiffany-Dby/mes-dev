@@ -13,6 +13,9 @@ class AuthControl:
         
         if data.password != data.confirmPassword:
             raise  HttpError(500, "passwords don't match")
+        
+        if not CheckInfos.isEmail(data.email):
+            raise HttpError(500, "Invalid email")
 
         if not CheckInfos.isValidPassword(data.password):
             raise HttpError(500, "password invalid")
@@ -28,6 +31,9 @@ class AuthControl:
 
     @staticmethod
     def login(data):
+        if not CheckInfos.isEmail(data.email):
+            raise HttpError(500, "Invalid email")
+        
         user = UserService.getByEmail(data.email)
         if user and UserService.checkPassword(user.id, data.password):
             refresh = RefreshToken.for_user(user)
