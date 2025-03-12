@@ -10,7 +10,7 @@ class UserRepo:
         salt = genSalt()
         hashedPass = encrypt(password, salt)
         try:
-            user = User.objects.create(firstName=firstName, lastName=lastName, email=email)
+            user = User.objects.create(firstName=firstName, lastName=lastName, email=email, username=email)
             if user:
                 cred = UserCredential.objects.create(user=user, salt=salt, password=hashedPass)
                 if cred:
