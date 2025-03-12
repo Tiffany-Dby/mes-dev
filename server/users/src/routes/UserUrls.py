@@ -35,11 +35,6 @@ def get_by_email(request, email: str) -> Optional[User]:
     return UsersControl.get_by_email(email)
 
 
-# @router.get("/getAll")
-# def getAll(request) -> Optional[List[User]]:
-#     return UsersControl.getAll()
-
-
 @router.put("/update", auth=JWTAuth())
 def update(request, data: UpdateSchema) -> Optional[User]:
     return UsersControl.update(data)
