@@ -1,69 +1,47 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from users.src.services.UserService import UserService
 from utils.checkInfos import CheckInfos
 
-class RegisterView(APIView):
-    permission_classes = [AllowAny]
 
-    def post(self, request):
-        firstName = request.data.get("firstName")
-        lastName = request.data.get("lastName")
-        email = request.data.get("email")
-        password = request.data.get("password")
+class AuthControl:
 
-        if not firstName or not lastName or not email or not password:
-            return Response({"error": "Tous les champs sont requis"}, status=400)
+    @staticmethod
+    def register(data):
+        if not CheckInfos.isValideString(data.firstName) or not CheckInfos.isValideString(data.lastName):
+            return "error: firstName or lastName invalid"
         
-        if not CheckInfos.isValideString(firstName) or not CheckInfos.isValideString(lastName):
-            return Response({"error": "firstName or lastName invalid"}, status=400)
-        
-        if not CheckInfos.isEmail(email):
-            return Response({"error": "email invalid"}, status=400)
-        
-        if not CheckInfos.isValidPassword(password):
-            return Response({"error": "password don't respect the rules"}, status=400)
+        if data.password != data.confirmPassword:
+            return "error: Les mots de passe ne correspondent pas"
 
-        if UserService.getByEmail(email):
-            return Response({"error": "Cet email est déjà utilisé"}, status=400)
-        
-        user = UserService.add(firstName, lastName, email, password)
+        if not CheckInfos.isValidPassword(data.password):
+            return "error: password doesn't respect the rules"
+
+        if UserService.getByEmail(data.email):
+            return "error: Cet email est déjà utilisé"
+
+        user = UserService.add(data.firstName, data.lastName, data.email, data.password)
         if not user:
-            return Response({"error": "Une erreur est survenue"}, status=500)
-        return Response({"message": "Utilisateur créé avec succès"}, status=201)
+            return "error: Une erreur est survenue"
 
-class LoginView(APIView):
-    permission_classes = [AllowAny]
+        return "Utilisateur créé avec succès"
 
-    def post(self, request):
-        email = request.data.get("email")
-        password = request.data.get("password")
+    @staticmethod
+    def login(data):
+        user = UserService.getByEmail(data.email)
+        if user and UserService.checkPassword(user.id, data.password):
+            refresh = RefreshToken.for_user(user)
+            return {
+                "access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "user": user.to_json(),
+            }
+        return "error: Identifiants invalides"
 
+    @staticmethod
+    def logout(data):
         try:
-            user = UserService.getByEmail(email)
-            if user:
-                if UserService.checkPassword(user.id, password):
-                    refresh = RefreshToken.for_user(user)
-                    return Response({
-                        "access": str(refresh.access_token),
-                        "refresh": str(refresh),
-                        "user": user.to_json()
-                    }, status=200)
-            
-        except Exception as e:
-            print(f"Erreur lors de la connexion : {e}")  # Log du serveur
-            return Response({"error": "Identifiants invalides"}, status=400)
-
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        try:
-            refresh_token = request.data["refresh"]
-            token = RefreshToken(refresh_token)
+            token = RefreshToken(data.refresh)
             token.blacklist()
-            return Response({"message": "Déconnexion réussie"}, status=200)
+            return "message: Déconnexion réussie"
         except Exception:
-            return Response({"error": "Token invalide"}, status=400)
+            return "error: Token invalide"
