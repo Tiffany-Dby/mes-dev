@@ -18,10 +18,6 @@ class UserService:
         return UserRepo.get_by_email(email)
 
     @staticmethod
-    def get_all() -> Optional[List[User]]:
-        return UserRepo.get_all()
-
-    @staticmethod
     def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:
         return UserRepo.update(id, firstName, lastName, email)
 

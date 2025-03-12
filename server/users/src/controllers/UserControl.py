@@ -18,10 +18,6 @@ class UsersControl:
         return UserService.get_by_email(email)
 
     @staticmethod
-    def get_all() -> List[User]:
-        return UserService.get_all()
-
-    @staticmethod
     def update(data) -> Optional[User]:
         if not CheckInfos.is_valid_id(data.id):
             raise HttpError(500, "Invalid id")

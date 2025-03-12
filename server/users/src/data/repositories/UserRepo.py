@@ -50,17 +50,6 @@ class UserRepo:
         return None
 
     @staticmethod
-    def get_all() -> Optional[List[User]]:
-        try:
-            users = User.objects.all()
-            if users:
-                return users
-        except Exception as e:
-            print(e)
-
-        return None
-
-    @staticmethod
     def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
