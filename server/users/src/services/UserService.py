@@ -14,25 +14,25 @@ class UserService:
         return UserRepo.get(id)
 
     @staticmethod
-    def getByEmail(email: str) -> Optional[User]:
-        return UserRepo.getByEmail(email)
+    def get_by_email(email: str) -> Optional[User]:
+        return UserRepo.get_by_email(email)
 
     @staticmethod
-    def getAll() -> Optional[List[User]]:
-        return UserRepo.getAll()
+    def get_all() -> Optional[List[User]]:
+        return UserRepo.get_all()
 
     @staticmethod
     def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:
         return UserRepo.update(id, firstName, lastName, email)
 
     @staticmethod
-    def updatePassword(id: int, password: str) -> Optional[User]:
-        return UserRepo.updatePassword(id, password)
+    def update_password(id: int, password: str) -> Optional[User]:
+        return UserRepo.update_password(id, password)
 
     @staticmethod
     def delete(id: int) -> bool:
         return UserRepo.delete(id)
 
     @staticmethod
-    def checkPassword(id: int, password: str) -> bool:
-        return UserRepo.checkPassword(id, password)
+    def check_password(id: int, password: str) -> bool:
+        return UserRepo.check_password(id, password)

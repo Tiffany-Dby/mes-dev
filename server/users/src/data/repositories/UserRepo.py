@@ -1,7 +1,7 @@
 from typing import Optional, List
 from users.src.data.models.User import User
 from users.src.data.models.UserCredential import UserCredential
-from utils.hashpass import genSalt, encrypt, checkPass
+from utils.hashpass import genSalt, encrypt, check_pass
 
 
 class UserRepo:
@@ -39,7 +39,7 @@ class UserRepo:
         return None
 
     @staticmethod
-    def getByEmail(email: str) -> Optional[User]:
+    def get_by_email(email: str) -> Optional[User]:
         try:
             user = User.objects.get(email=email)
             if user:
@@ -50,7 +50,7 @@ class UserRepo:
         return None
 
     @staticmethod
-    def getAll() -> Optional[List[User]]:
+    def get_all() -> Optional[List[User]]:
         try:
             users = User.objects.all()
             if users:
@@ -76,7 +76,7 @@ class UserRepo:
         return None
 
     @staticmethod
-    def updatePassword(id: int, password: str) -> Optional[User]:
+    def update_password(id: int, password: str) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
             cred = UserCredential.objects.get(user=user)
@@ -104,12 +104,12 @@ class UserRepo:
                 return False
 
     @staticmethod
-    def checkPassword(id: int, password: str) -> bool:
+    def check_password(id: int, password: str) -> bool:
         try:
             user = User.objects.get(id=id)
             if user:
                 cred = UserCredential.objects.get(user=user)
-                return checkPass(password, cred.salt, cred.password)
+                return check_pass(password, cred.salt, cred.password)
         except Exception as e:
             print(e)
 

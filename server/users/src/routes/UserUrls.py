@@ -31,8 +31,8 @@ def get(request, id: int) -> Optional[User]:
 
 
 @router.post("/getByEmail/{email}", auth=JWTAuth())
-def getByEmail(request, email: str) -> Optional[User]:
-    return UsersControl.getByEmail(email)
+def get_by_email(request, email: str) -> Optional[User]:
+    return UsersControl.get_by_email(email)
 
 
 # @router.get("/getAll")
@@ -46,8 +46,8 @@ def update(request, data: UpdateSchema) -> Optional[User]:
 
 
 @router.put("/updatePassword", auth=JWTAuth())
-def updatePassword(request, data: UpdatePasswordSchema) -> Optional[User]:
-    return UsersControl.updatePassword(data)
+def update_password(request, data: UpdatePasswordSchema) -> Optional[User]:
+    return UsersControl.update_password(data)
 
 
 @router.delete("/delete/{id}", auth=JWTAuth())

@@ -10,7 +10,7 @@ def encrypt(password, salt):
     return bcrypt.hashpw(password, salt)
 
 
-def checkPass(password, salt, hashedPass):
+def check_pass(password, salt, hashedPass):
     password = encrypt(password, salt)
     if password == hashedPass:
         return True
