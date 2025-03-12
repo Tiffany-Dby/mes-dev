@@ -9,6 +9,9 @@ class AuthControl:
     def register(data):
         if not CheckInfos.isValideString(data.firstName) or not CheckInfos.isValideString(data.lastName):
             return "error: firstName or lastName invalid"
+        
+        if data.password != data.confirmPassword:
+            return "error: Les mots de passe ne correspondent pas"
 
         if not CheckInfos.isValidPassword(data.password):
             return "error: password doesn't respect the rules"
