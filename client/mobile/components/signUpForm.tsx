@@ -1,5 +1,6 @@
 import React from 'react';
-import BaseInput from "@/components/baseInput";
+import BaseInput from "./baseInput";
+import PasswordInput from './passwordInput';
 import BaseButton from './baseButton';
 import { View, StyleSheet, Text, Button } from 'react-native';
 
@@ -7,13 +8,13 @@ import { View, StyleSheet, Text, Button } from 'react-native';
 export default function SignUpForm() {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Sign Up</Text>
-        <BaseInput placeholder="First name" />
-        <BaseInput placeholder="Last name" />
+        <Text style={styles.title}>Création de compte</Text>
+        <BaseInput placeholder="Prénom" />
+        <BaseInput placeholder="Nom" />
         <BaseInput placeholder="Email" />
-        <BaseInput placeholder="Password"/>
-        <BaseInput placeholder="Confirm password" />
-        <BaseButton title="Sign Up" onPress={() => {}} />
+        <PasswordInput placeholder="Mot de passe"/>
+        <PasswordInput placeholder="Confirmer mot de passe" />
+        <BaseButton title="S'inscrire" onPress={() => {}} />
     </View>
   );
 }
