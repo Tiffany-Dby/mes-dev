@@ -87,7 +87,7 @@ class UserRepo:
         except Exception as e:
             print(e)
 
-        return User.objects.filter(id=id).exists()
+        return True if not User.objects.filter(id=id).exists() else False
 
     @staticmethod
     def check_password(id: int, password: str) -> bool:
