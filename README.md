@@ -99,19 +99,7 @@ Authorization: Bearer <votre_access_token>
       "email": "quentin.stempfer@gmail.com"
     }
   }
-  ```
-
-#### ➤ **📌 Déconnexion**
-- **Méthode :** `POST`
-- **Endpoint :** `/api/auth/logout`
-- **Description :** Invalide le token de l'utilisateur.
-- **Réponse :**
-  ```json
-  {
-    "code": 200,
-    "message": "Déconnexion réussie"
-  }
-  ```
+  ````
 
 ---
 
