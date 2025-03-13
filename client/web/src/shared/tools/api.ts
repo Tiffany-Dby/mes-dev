@@ -44,8 +44,6 @@ const request = async <T>(
 
     status = response.status;
     result = await response.json();
-    console.log(result);
-    console.log(response);
 
     if (status >= 400)
       throw new Error(

@@ -23,4 +23,4 @@ const SignUpSchema = z
   });
 
 export { SignUpSchema };
-export type _SignUpData = z.infer<typeof SignUpSchema>;
+export type SignUpData = z.infer<typeof SignUpSchema>;

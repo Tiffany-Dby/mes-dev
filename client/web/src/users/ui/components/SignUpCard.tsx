@@ -11,7 +11,7 @@ import useCustomForm from "@/shared/hooks/useCustomForm";
 import { ApiRoutes, AppRoutes } from "@/shared/types/Routes";
 import BaseCard from "@/shared/ui/components/BaseCard";
 import BaseInputGroup from "@/shared/ui/components/BaseInputGroup";
-import { _SignUpData, SignUpSchema } from "@/users/schemas/SignUpSchema";
+import { SignUpData, SignUpSchema } from "@/users/schemas/SignUpSchema";
 import {
   CircleUserRoundIcon,
   EyeIcon,
@@ -38,7 +38,7 @@ const SignUpCard = () => {
   });
 
   const fields: {
-    name: keyof _SignUpData;
+    name: keyof SignUpData;
     label: string;
     type: string;
     placeholder: string;
