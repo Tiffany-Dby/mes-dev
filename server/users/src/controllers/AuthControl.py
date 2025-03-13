@@ -42,12 +42,3 @@ class AuthControl:
                 "user": user.to_json(),
             }
         raise HttpError(401, "email or password invalid")
-
-    @staticmethod
-    def logout(data):
-        try:
-            token = RefreshToken(data.refresh)
-            token.blacklist()
-            return "logout successful"
-        except Exception:
-            raise HttpError(500, "invalid token")

@@ -30,8 +30,3 @@ def register(request, data: RegisterSchema):
 @router.post("/login")
 def login(request, data: LoginSchema):
     return AuthControl.login(data)
-
-
-@router.post("/logout", auth=JWTAuth())
-def logout(request, data: LogoutSchema):
-    return AuthControl.logout(data)
