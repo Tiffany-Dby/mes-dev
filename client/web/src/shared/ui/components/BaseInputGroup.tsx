@@ -4,10 +4,11 @@ import * as React from "react";
 
 interface BaseInputGroupProps extends React.ComponentProps<"input"> {
   isSrOnly?: boolean;
-  label: string;
+  label?: string;
   labelClassName?: string;
   inputClassName?: string;
   icon?: React.ComponentType<{ className?: string; onClick?: () => void }>;
+  toggleType?: () => void;
 }
 
 const BaseInputGroup: React.FC<BaseInputGroupProps> = ({
@@ -16,30 +17,35 @@ const BaseInputGroup: React.FC<BaseInputGroupProps> = ({
   icon: Icon,
   labelClassName = "",
   inputClassName = "",
+  toggleType,
+  type,
+  autoComplete,
+  placeholder,
+  id,
   ...props
 }) => {
-  const [typePw, setTypePw] = React.useState("password");
-
   return (
     <div>
-      <Label
-        htmlFor={props.id}
-        className={isSrOnly ? "sr-only" : labelClassName}
-      >
-        {label}
-      </Label>
+      {label && (
+        <Label htmlFor={id} className={isSrOnly ? "sr-only" : labelClassName}>
+          {label}
+        </Label>
+      )}
       <div className="relative w-full">
         <Input
-          className={`w-full${inputClassName}`}
           {...props}
-          type={props.type === "password" ? typePw : props.type}
+          id={id}
+          type={type}
+          autoComplete={autoComplete}
+          placeholder={placeholder}
+          className={`w-full ${inputClassName}`}
         />
         {Icon && (
           <Icon
-            className="size-5 absolute right-3 top-1/2 -translate-y-1/2 text-tertiary-75"
-            onClick={() =>
-              setTypePw(typePw === "password" ? "text" : "password")
-            }
+            className={`size-5 absolute right-3 top-1/2 -translate-y-1/2 text-tertiary-75 ${
+              toggleType ? "cursor-pointer" : ""
+            }`}
+            onClick={toggleType}
           />
         )}
       </div>

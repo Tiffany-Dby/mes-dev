@@ -1,4 +1,5 @@
 import { FetchConfig, FetchMethod } from "@/shared/types/Api";
+import { ApiRoutes } from "../types/Routes";
 
 const getRequest = async <T>(
   url: string
@@ -6,6 +7,7 @@ const getRequest = async <T>(
   const config = {
     method: FetchMethod.GET,
     headers: {
+      "Content-type": "application/json",
       Accept: "application/json",
     },
   };
@@ -38,12 +40,10 @@ const request = async <T>(
   let status = -1;
 
   try {
-    const response = await fetch(url, config);
+    const response = await fetch(ApiRoutes.url + url, config);
 
     status = response.status;
     result = await response.json();
-    console.log(result);
-    console.log(response);
 
     if (status >= 400)
       throw new Error(
