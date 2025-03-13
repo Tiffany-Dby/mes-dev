@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
-import Header from '@/components/header'; // Assure-toi que le chemin est correct
+import Header from '@/components/Header';
+import SideMenu from '@/components/SideMenu';
 
 export default function Layout() {
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible((prev) => !prev);
+  };
+
   return (
     <View style={styles.container}>
-      <Header />
-      <Stack screenOptions={{ headerShown: false }} /> {/* Gère la navigation */}
+      <Header onMenuPress={toggleMenu} /> {/* <-- Passe la fonction au Header */}
+      <Stack screenOptions={{ headerShown: false }} />
+      <SideMenu isVisible={menuVisible} onClose={toggleMenu} />
     </View>
   );
 }

@@ -1,11 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export default function Header() {
+interface HeaderProps {
+  onMenuPress: () => void;
+}
+
+export default function Header({ onMenuPress }: HeaderProps) {
   return (
     <View style={styles.header}>
-      <Image source={require('../assets/images/logo-cyna.svg')} />
-      <Image source={require('../assets/images/menu.png')} style={{ width: 40, height: 40, tintColor: '#ffffff'}} />
+      <Image source={require('../assets/images/logo-cyna.svg')} style={styles.logo} />
+      
+      {/* Icône menu cliquable */}
+      <TouchableOpacity onPress={() => {
+          console.log("Menu button clicked!");
+          onMenuPress(); 
+        }}>
+        <Image 
+          source={require('../assets/images/menu.png')} 
+          style={styles.menuIcon} 
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -15,7 +29,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 80,
     backgroundColor: 'blue',
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -23,9 +36,13 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingHorizontal: 20,
   },
-  title: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
+  logo: {
+    width: 100,
+    height: 40,
+  },
+  menuIcon: {
+    width: 40,
+    height: 40,
+    tintColor: '#ffffff',
   },
 });
