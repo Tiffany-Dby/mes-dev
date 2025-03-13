@@ -33,5 +33,5 @@ def login(request, data: LoginSchema):
 
 
 @router.post("/refresh", auth=JWTAuth())
-def refresh(request, token: RefreshSchema):
-    return AuthControl.refresh(token)
+def refresh(request, data: RefreshSchema):
+    return AuthControl.refresh(data)
