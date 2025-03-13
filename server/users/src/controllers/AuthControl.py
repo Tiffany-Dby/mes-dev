@@ -42,3 +42,18 @@ class AuthControl:
                 "user": user.to_json(),
             }
         raise HttpError(401, "email or password invalid")
+
+    @staticmethod
+    def refresh(token):
+        try:
+            refresh = RefreshToken(token)
+            user = UserService.get(refresh["user_id"])
+            if user:
+                return {
+                    "access": str(refresh.access_token),
+                    "refresh": str(refresh),
+                    "user": user.to_json(),
+                }
+        except Exception as e:
+            print(e)
+        raise HttpError(401, "Invalid token")
