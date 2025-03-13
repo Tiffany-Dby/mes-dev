@@ -44,20 +44,21 @@ class AuthControl:
         raise HttpError(401, "email or password invalid")
 
     @staticmethod
-    def refresh(token):
+    def refresh(data):
         try:
+            token = data.refresh
             refresh = RefreshToken(token)
+            print("token ok")
             user_id = refresh.payload["user_id"]
             user = UserService.get(user_id)
 
             if not user:
                 raise HttpError(404, "User not found")
 
-            refresh = RefreshToken.for_user(user)
+            new_refresh = RefreshToken.for_user(user)
             return {
-                "access": str(refresh.access_token),
-                "refresh": str(refresh),
-                "user": user.to_json(),
+                "access": str(new_refresh.access_token),
+                "refresh": str(new_refresh),
             }
 
         except Exception as e:
