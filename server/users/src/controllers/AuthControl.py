@@ -47,13 +47,19 @@ class AuthControl:
     def refresh(token):
         try:
             refresh = RefreshToken(token)
-            user = UserService.get(refresh["user_id"])
-            if user:
-                return {
-                    "access": str(refresh.access_token),
-                    "refresh": str(refresh),
-                    "user": user.to_json(),
-                }
+            user_id = refresh.payload["user_id"]
+            user = UserService.get(user_id)
+
+            if not user:
+                raise HttpError(404, "User not found")
+
+            refresh = RefreshToken.for_user(user)
+            return {
+                "access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "user": user.to_json(),
+            }
+
         except Exception as e:
-            print(e)
-        raise HttpError(401, "Invalid token")
+            print(f"Token refresh error: {e}")
+            raise HttpError(401, "Invalid or expired refresh token")
