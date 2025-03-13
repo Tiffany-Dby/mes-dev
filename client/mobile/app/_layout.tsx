@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Stack } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
-import Header from '@/components/header';
-import SideMenu from '@/components/sideMenu';
+import Header from '@/components/Header';
+import SideMenu from '@/components/SideMenu';
 
 export default function Layout() {
   const [menuVisible, setMenuVisible] = useState(false);

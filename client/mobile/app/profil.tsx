@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native';
-import BaseInput from '../components/baseInput';
-import PasswordInput from '../components/passwordInput';
-import BaseButton from '../components/baseButton';
+import BaseInput from '../components/BaseInput';
+import PasswordInput from '../components/PasswordInput';
+import BaseButton from '../components/BaseButton';
 
 export default function Profil() {
     return (

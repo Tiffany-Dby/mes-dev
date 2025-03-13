@@ -1,7 +1,7 @@
 import React from 'react';
-import BaseInput from "@/components/baseInput";
-import BaseButton from './baseButton';
-import PasswordInput from './passwordInput';
+import BaseInput from "@/components/BaseInput";
+import BaseButton from './BaseButton';
+import PasswordInput from './PasswordInput';
 import { View, StyleSheet, Text } from 'react-native';
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import MySubscriptionCard from '@/components/subscriptionCard';
+import MySubscriptionCard from '@/components/SubscriptionCard';
 
 export default function MySubscriptionsScreen() {
   const handleManage = (plan: string) => {
