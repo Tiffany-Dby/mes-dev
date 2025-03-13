@@ -8,22 +8,22 @@ class AuthControl:
 
     @staticmethod
     def register(data):
-        if not CheckInfos.isValideString(
+        if not CheckInfos.is_valid_string(
             data.firstName
-        ) or not CheckInfos.isValideString(data.lastName):
-            raise HttpError(500, "firstName or lastName invalid")
+        ) or not CheckInfos.is_valid_string(data.lastName):
+            raise HttpError(400, "firstName or lastName invalid")
 
         if data.password != data.confirmPassword:
-            raise HttpError(500, "passwords don't match")
+            raise HttpError(400, "passwords don't match")
 
-        if not CheckInfos.isEmail(data.email):
-            raise HttpError(500, "Invalid email")
+        if not CheckInfos.is_email(data.email):
+            raise HttpError(400, "Invalid email")
 
-        if not CheckInfos.isValidPassword(data.password):
-            raise HttpError(500, "password invalid")
+        if not CheckInfos.is_valid_password(data.password):
+            raise HttpError(400, "password invalid")
 
-        if UserService.getByEmail(data.email):
-            raise HttpError(500, "email already exists")
+        if UserService.get_by_email(data.email):
+            raise HttpError(409, "email already exists")
 
         user = UserService.add(data.firstName, data.lastName, data.email, data.password)
         if not user:
@@ -33,15 +33,15 @@ class AuthControl:
 
     @staticmethod
     def login(data):
-        user = UserService.getByEmail(data.email)
-        if user and UserService.checkPassword(user.id, data.password):
+        user = UserService.get_by_email(data.email)
+        if user and UserService.check_password(user.id, data.password):
             refresh = RefreshToken.for_user(user)
             return {
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
                 "user": user.to_json(),
             }
-        raise HttpError(500, "email or password invalid")
+        raise HttpError(401, "email or password invalid")
 
     @staticmethod
     def logout(data):

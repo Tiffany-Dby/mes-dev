@@ -1,4 +1,4 @@
-import SignInForm from "@/components/signInForm";
+import MySubscriptionsScreen from "./mySubsriptions";
 import { View } from "react-native";
 
 export default function Index() {
@@ -10,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <SignInForm />
+      <MySubscriptionsScreen />
     </View>
   );
 }

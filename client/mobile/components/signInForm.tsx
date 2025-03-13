@@ -1,16 +1,17 @@
 import React from 'react';
-import BaseInput from "@/components/baseInput";
-import BaseButton from './baseButton';
+import BaseInput from "@/components/BaseInput";
+import BaseButton from './BaseButton';
+import PasswordInput from './PasswordInput';
 import { View, StyleSheet, Text } from 'react-native';
 
 
 export default function SignInForm() {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.title}>Connexion</Text>
         <BaseInput placeholder="Email" />
-        <BaseInput placeholder="Password"/>
-        <BaseButton title="Sign In" onPress={() => {}} />
+        <PasswordInput placeholder="Mot de passe"/>
+        <BaseButton title="Connexion" onPress={() => {}} />
     </View>
   );
 }

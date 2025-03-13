@@ -1,7 +1,7 @@
-import SignUpForm from "@/components/SignUpForm";
+import SignInForm from "@/components/SignInForm";
 import { View } from "react-native";
 
-export default function SignUp() {
+export default function Index() {
   return (
     <View
       style={{
@@ -10,7 +10,7 @@ export default function SignUp() {
         alignItems: "center",
       }}
     >
-      <SignUpForm />
+      <SignInForm />
     </View>
   );
 }

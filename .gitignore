@@ -1,0 +1,4 @@
+.scannerwork/
+sonarqube/
+.vscode
+.DS_Store

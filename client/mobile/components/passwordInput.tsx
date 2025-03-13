@@ -11,6 +11,7 @@ export default function BaseInput({ placeholder, ...rest }: BaseInput) {
       style={styles.input}
       placeholder={placeholder}
       placeholderTextColor="#888"
+      secureTextEntry={true}
       {...rest}
     />
   );
