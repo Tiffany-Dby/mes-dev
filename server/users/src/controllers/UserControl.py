@@ -12,13 +12,14 @@ class UsersControl:
         user = UserService.get(id)
         if not user:
             raise HttpError(404, "User not found")
-        return user
+        return user.to_json()
 
     @staticmethod
     def get_by_email(email: str) -> Optional[User]:
         if not CheckInfos.is_email(email):
             raise HttpError(400, "Invalid email")
-        return UserService.get_by_email(email)
+        user = UserService.get_by_email(email)
+        return user.to_json() if user else HttpError(404, "User not found")
 
     @staticmethod
     def update(data) -> Optional[User]:
@@ -30,7 +31,8 @@ class UsersControl:
             raise HttpError(400, "Invalid lastName")
         if not CheckInfos.is_email(data.email):
             raise HttpError(400, "Invalid email")
-        return UserService.update(data.id, data.firstName, data.lastName, data.email)
+        user = UserService.update(data.id, data.firstName, data.lastName, data.email)
+        return user.to_json() if user else HttpError(500, "An error occurred")
 
     @staticmethod
     def update_password(data) -> Optional[User]:
@@ -38,7 +40,8 @@ class UsersControl:
             data.password
         ):
             raise HttpError(400, "Invalid password")
-        return UserService.update_password(data.id, data.password)
+        user = UserService.update_password(data.id, data.password)
+        return user.to_json() if user else HttpError(500, "An error occurred")
 
     @staticmethod
     def delete(id: int) -> bool:
