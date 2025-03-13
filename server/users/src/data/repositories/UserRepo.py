@@ -1,27 +1,32 @@
 from typing import Optional, List
 from users.src.data.models.User import User
 from users.src.data.models.UserCredential import UserCredential
-from utils.hashpass import genSalt, encrypt, checkPass
+from utils.hashpass import gen_salt, encrypt, check_pass
+
 
 class UserRepo:
-    
+
     @staticmethod
     def add(firstName: str, lastName: str, email: str, password: str) -> Optional[User]:
-        salt = genSalt()
+        salt = gen_salt()
         hashedPass = encrypt(password, salt)
         try:
-            user = User.objects.create(firstName=firstName, lastName=lastName, email=email, username=email)
+            user = User.objects.create(
+                firstName=firstName, lastName=lastName, email=email, username=email
+            )
             if user:
-                cred = UserCredential.objects.create(user=user, salt=salt, password=hashedPass)
+                cred = UserCredential.objects.create(
+                    user=user, salt=salt, password=hashedPass
+                )
                 if cred:
                     return user
                 else:
                     user.delete()
         except Exception as e:
             print(e)
-        
+
         return None
-    
+
     @staticmethod
     def get(id: int) -> Optional[User]:
         try:
@@ -30,31 +35,20 @@ class UserRepo:
                 return user
         except Exception as e:
             print(e)
-        
+
         return None
-    
+
     @staticmethod
-    def getByEmail(email: str) -> Optional[User]:
+    def get_by_email(email: str) -> Optional[User]:
         try:
             user = User.objects.get(email=email)
             if user:
                 return user
         except Exception as e:
             print(e)
-        
+
         return None
-    
-    @staticmethod
-    def getAll() -> Optional[List[User]]:
-        try:
-            users = User.objects.all()
-            if users:
-                return users
-        except Exception as e:
-            print(e)
-        
-        return None
-    
+
     @staticmethod
     def update(id: int, firstName: str, lastName: str, email: str) -> Optional[User]:
         try:
@@ -67,11 +61,11 @@ class UserRepo:
                 return user
         except Exception as e:
             print(e)
-        
+
         return None
-        
+
     @staticmethod
-    def updatePassword(id: int, password: str) -> Optional[User]:
+    def update_password(id: int, password: str) -> Optional[User]:
         try:
             user = User.objects.get(id=id)
             cred = UserCredential.objects.get(user=user)
@@ -81,9 +75,9 @@ class UserRepo:
                 return user
         except Exception as e:
             print(e)
-        
+
         return None
-        
+
     @staticmethod
     def delete(id: int) -> bool:
         try:
@@ -92,19 +86,16 @@ class UserRepo:
                 user.delete()
         except Exception as e:
             print(e)
-        finally:
-            if not User.objects.filter(id=id).exists():
-                return True
-            else:
-                return False
+
+        return User.objects.filter(id=id).exists()
 
     @staticmethod
-    def checkPassword(id: int, password: str) -> bool:
+    def check_password(id: int, password: str) -> bool:
         try:
             user = User.objects.get(id=id)
             if user:
                 cred = UserCredential.objects.get(user=user)
-                return checkPass(password, cred.salt, cred.password)
+                return check_pass(password, cred.salt, cred.password)
         except Exception as e:
             print(e)
 

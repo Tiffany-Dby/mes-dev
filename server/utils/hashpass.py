@@ -1,14 +1,16 @@
 import bcrypt
-import re
 
-def genSalt():
+
+def gen_salt():
     return bcrypt.gensalt()
+
 
 def encrypt(password, salt):
     password = password.encode("utf-8")
     return bcrypt.hashpw(password, salt)
 
-def checkPass(password, salt, hashedPass):
+
+def check_pass(password, salt, hashedPass):
     password = encrypt(password, salt)
     if password == hashedPass:
         return True
