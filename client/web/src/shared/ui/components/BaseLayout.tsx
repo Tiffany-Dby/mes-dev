@@ -4,12 +4,17 @@ import { ReactNode } from "react";
 
 interface BaseLayoutProps {
   children?: ReactNode;
+  isIntersecting: boolean;
 }
 
-const BaseLayout = ({ children }: BaseLayoutProps) => {
+const BaseLayout = ({ children, isIntersecting }: BaseLayoutProps) => {
   return (
     <>
-      <header className="sticky grid top-0 w-full bg-linear-90 from-primary-150 to-primary-100 text-primary-foreground shadow-2xl transition-[background,box-shadow] duration-500">
+      <header
+        className={`fixed grid top-0 w-full bg-linear-90 from-primary-150 to-primary-100 text-primary-foreground transition-[background,box-shadow] duration-500${
+          isIntersecting ? " shadow-2xl bg-none bg-primary-150/75" : ""
+        }`}
+      >
         <div className="area-1/1 -z-10 backdrop-blur-md"></div>
         <div className="area-1/1 container mx-auto flex-between-center gap-2 py-3 px-4">
           <div>

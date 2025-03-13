@@ -1,56 +1,96 @@
 import { Button } from "@/lib/components/ui/button";
-import { AppRoutes } from "@/shared/types/Routes";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/lib/components/ui/form";
+import useCustomForm from "@/shared/hooks/useCustomForm";
+import { ApiRoutes, AppRoutes } from "@/shared/types/Routes";
 import BaseCard from "@/shared/ui/components/BaseCard";
 import BaseInputGroup from "@/shared/ui/components/BaseInputGroup";
-import useSignUp from "@/users/hooks/useSignUp";
-import { CircleUserRoundIcon, EyeOffIcon, MailIcon } from "lucide-react";
+import { _SignUpData, SignUpSchema } from "@/users/schemas/SignUpSchema";
+import {
+  CircleUserRoundIcon,
+  EyeIcon,
+  EyeOffIcon,
+  MailIcon,
+} from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router";
 
 const SignUpCard = () => {
-  const {
-    handleSignUpChange,
-    handleSignUpSubmit,
-    signUpForm,
-    signUpLoading,
-    signUpError,
-    signUpSuccess,
-  } = useSignUp();
+  const [typePassword, setTypePassword] = useState("password");
+  const [typeConfirmPassword, setTypeConfirmPassword] = useState("password");
 
-  const signUpFields = [
+  const { form, handleSubmit, isLoading, serverError } = useCustomForm({
+    schema: SignUpSchema,
+    apiUrl: ApiRoutes.signUp,
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const fields: {
+    name: keyof _SignUpData;
+    label: string;
+    type: string;
+    placeholder: string;
+    autoComplete: string;
+    icon?: React.ComponentType<{ className?: string; onClick?: () => void }>;
+    toggleType?: () => void;
+  }[] = [
     {
+      name: "firstName",
       label: "Prénom",
-      id: "firstName",
       type: "text",
       placeholder: "Prénom",
+      autoComplete: "name",
       icon: CircleUserRoundIcon,
     },
     {
+      name: "lastName",
       label: "Nom",
-      id: "lastName",
       type: "text",
       placeholder: "Nom",
+      autoComplete: "family-name",
       icon: CircleUserRoundIcon,
     },
     {
+      name: "email",
       label: "Email",
-      id: "email",
       type: "email",
       placeholder: "Email",
+      autoComplete: "email",
       icon: MailIcon,
     },
     {
+      name: "password",
       label: "Mot de passe",
-      id: "password",
-      type: "password",
+      type: typePassword,
       placeholder: "Mot de passe",
-      icon: EyeOffIcon,
+      autoComplete: "new-password",
+      icon: typePassword === "password" ? EyeIcon : EyeOffIcon,
+      toggleType: () =>
+        setTypePassword((prev) => (prev === "password" ? "text" : "password")),
     },
     {
+      name: "confirmPassword",
       label: "Confirmer mot de passe",
-      id: "confirmPassword",
-      type: "password",
+      type: typeConfirmPassword,
       placeholder: "Confirmer mot de passe",
-      icon: EyeOffIcon,
+      autoComplete: "new-password",
+      icon: typeConfirmPassword === "password" ? EyeIcon : EyeOffIcon,
+      toggleType: () =>
+        setTypeConfirmPassword((prev) =>
+          prev === "password" ? "text" : "password"
+        ),
     },
   ];
 
@@ -58,35 +98,52 @@ const SignUpCard = () => {
     <BaseCard
       title={<h1 className="text-4xl uppercase">Inscription</h1>}
       description={
-        <>
-          {signUpError && <p className="text-danger">{signUpError}</p>}
-          {signUpSuccess && (
-            <p className="text-success">Inscription réussie !</p>
-          )}
-        </>
+        <>{serverError && <p className="text-danger">{serverError}</p>}</>
       }
       content={
-        <form className="flex flex-col gap-5" onSubmit={handleSignUpSubmit}>
-          {signUpFields.map(({ label, id, type, placeholder, icon }) => (
-            <BaseInputGroup
-              key={id}
-              label={label}
-              isSrOnly={true}
-              type={type}
-              id={id}
-              name={id}
-              placeholder={placeholder}
-              icon={icon}
-              value={signUpForm[id as keyof typeof signUpForm]}
-              onChange={handleSignUpChange}
-            />
-          ))}
-          <div>
-            <Button type="submit" className="w-full" disabled={signUpLoading}>
-              {signUpLoading ? "Création du compte..." : "Je crée mon compte"}
+        <Form {...form}>
+          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+            {fields.map(
+              ({
+                name,
+                label,
+                type,
+                placeholder,
+                autoComplete,
+                icon: Icon,
+                toggleType,
+              }) => (
+                <FormField
+                  key={name}
+                  control={form.control}
+                  name={name}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor={name} className="sr-only">
+                        {label}
+                      </FormLabel>
+                      <FormControl>
+                        <BaseInputGroup
+                          {...field}
+                          id={name}
+                          type={type}
+                          placeholder={placeholder}
+                          icon={Icon}
+                          autoComplete={autoComplete}
+                          toggleType={toggleType}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-danger" />
+                    </FormItem>
+                  )}
+                />
+              )
+            )}
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Création du compte..." : "Je crée mon compte"}
             </Button>
-          </div>
-        </form>
+          </form>
+        </Form>
       }
       footer={
         <div className="flex flex-col gap-5 w-full">
@@ -97,7 +154,7 @@ const SignUpCard = () => {
             <p>Déjà inscrit(e) ?</p>
             <div className="text-center">
               <Link
-                to={AppRoutes.home}
+                to={AppRoutes.signIn}
                 className="block border-[1px] border-primary-100 text-primary-100 text-sm font-medium bg-primary-100-foreground py-2 px-4 hover:bg-primary-100 hover:text-primary-100-foreground transition-colors duration-500 h-9 rounded-md"
               >
                 Je me connecte
@@ -109,4 +166,5 @@ const SignUpCard = () => {
     />
   );
 };
+
 export default SignUpCard;
