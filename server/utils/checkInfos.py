@@ -36,7 +36,7 @@ class CheckInfos:
         if not re.search(r"[a-z]", password):
             return False
 
-        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        if not re.search(r"[_-!@#$%^&*(),.?\":{}|<>]", password):
             return False
 
         return True
