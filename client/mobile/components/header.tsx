@@ -8,7 +8,7 @@ interface HeaderProps {
 export default function Header({ onMenuPress }: HeaderProps) {
   return (
     <View style={styles.header}>
-      <Image source={require('../assets/images/logo-cyna.svg')} style={styles.logo} />
+      <Image source={require('../assets/images/logo-cyna-c.png')} style={styles.logo} />
       
       {/* Icône menu cliquable */}
       <TouchableOpacity onPress={() => {
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   logo: {
-    width: 100,
-    height: 40,
+    width: 50,
+    height: 50,
   },
   menuIcon: {
     width: 40,
