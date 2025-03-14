@@ -6,12 +6,11 @@ A modern e-commerce web application built with React, TypeScript, and ShadCN UI 
 
 ## Table of contents
 
-1. [Technologies](#)
-2. [Installation]
-3. [Project structure]
-4. [Usage]
-5. [Collaborators]
-6. [License]
+1. [Technologies](#technologies)
+2. [Installation](#installation)
+3. [Project structure](#project-structure)
+4. [Usage](#usage)
+5. [Collaborators](#collaborators)
 
 ---
 
