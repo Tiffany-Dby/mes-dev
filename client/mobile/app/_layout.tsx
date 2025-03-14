@@ -15,7 +15,7 @@ export default function Layout() {
 
   return (
     <View style={styles.container}>
-      {pathname === "/" ? null : <Header onMenuPress={toggleMenu} />}
+      {pathname === "/" || pathname === "/sign-up" ? null : <Header onMenuPress={toggleMenu} />}
       <Stack screenOptions={{ headerShown: false }} />
       <SideMenu isVisible={menuVisible} onClose={toggleMenu} />
     </View>

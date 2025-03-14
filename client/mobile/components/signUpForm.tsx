@@ -8,7 +8,7 @@ import { postRequest } from "@/tools/api";
 import { ApiRoutes } from "@/types/Routes";
 
 export default function SignUpForm() {
-  const router = useRouter(); // ✅ Pour la redirection
+  const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +17,6 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 🔹 Fonction appelée au clic sur "S'inscrire"
   const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       Alert.alert("Erreur", "Tous les champs sont obligatoires.");
@@ -52,7 +51,7 @@ export default function SignUpForm() {
     }
 
     Alert.alert("Succès", "Compte créé avec succès. Vous pouvez maintenant vous connecter !");
-    router.push("/sign-in");
+    router.push("/");
   };
 
   return (
@@ -66,7 +65,7 @@ export default function SignUpForm() {
       <PasswordInput placeholder="Confirmer mot de passe" onChangeText={setConfirmPassword} value={confirmPassword} />
 
       {error && <Text style={styles.error}>{error}</Text>}
-      <Text>Déjà un compte ? <Text onPress={() => router.push("/sign-in")}>Connexion</Text></Text>
+      <Text>Déjà un compte ? <Text onPress={() => router.push("/")}>Connexion</Text></Text>
       <BaseButton title="S'inscrire" onPress={handleSignUp} disabled={loading} />
 
       {loading && <ActivityIndicator size="small" color="#007BFF" />}

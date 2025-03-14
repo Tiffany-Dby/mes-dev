@@ -19,7 +19,6 @@ export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
   useEffect(() => {
     if (isVisible) {
       setTimeout(() => {
-        console.log("Vérification de l'authentification (mise à jour)", access);
         setIsAuthenticated(!!access);
       }, 50);
     }
@@ -44,10 +43,6 @@ export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
 
       <View style={styles.menuContent}>
         <Text style={styles.menuTitle}>Menu</Text>
-        
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/')}>
-          <Text style={styles.menuText}>🏠 Accueil</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/profil')}>
           <Text style={styles.menuText}>👤 Mon profil</Text>

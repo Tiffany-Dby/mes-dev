@@ -13,7 +13,6 @@ export default function Profil() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // 🔹 Récupérer les infos utilisateur au chargement
   useEffect(() => {
     if (!access) return;
 
@@ -40,7 +39,6 @@ export default function Profil() {
     fetchUser();
   }, [access]);
 
-  // 🔹 Modifier les données utilisateur
   const handleUpdate = async () => {
     if (!user.firstName || !user.lastName || !user.email) {
       Alert.alert("Erreur", "Tous les champs doivent être remplis.");

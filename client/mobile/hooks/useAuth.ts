@@ -6,7 +6,6 @@
     import { ApiRoutes } from "@/types/Routes";
     import { useRouter } from "expo-router";
 
-    // ✅ Déterminer le bon stockage selon la plateforme
     const storage = Platform.OS === "web" ? AsyncStorage : SecureStore;
 
     export default function useAuth() {
@@ -15,7 +14,6 @@
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    // 🔹 Vérifier si un token est déjà stocké
     useEffect(() => {
         const checkToken = async () => {
         try {
@@ -31,7 +29,6 @@
         checkToken();
     }, []);
 
-    // 🔹 Fonction de connexion
     const login = async (email: string, password: string) => {
         setLoading(true);
         setError(null);
@@ -48,16 +45,12 @@
         return;
         }
 
-        // 🔥 Stocker le token sous forme de string
-        await storage.setItem("userToken", JSON.stringify(result.access)); // ✅ Correction ici
-        console.log("result.accesstoken", result.access);
+        await storage.setItem("userToken", JSON.stringify(result.access));
         setToken(result.access);
 
-        // ✅ Rediriger après connexion
         router.push("/profil");
     };
 
-    // 🔹 Fonction de déconnexion
     const logout = async () => {
         try {
         if (Platform.OS === "web") {

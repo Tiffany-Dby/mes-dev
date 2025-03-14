@@ -12,8 +12,8 @@ interface BaseButtonProps {
 export default function BaseButton({
   title,
   onPress,
-  backgroundColor = '#007BFF', // Couleur par défaut
-  textColor = '#FFFFFF', // Couleur du texte par défaut
+  backgroundColor = '#007BFF',
+  textColor = '#FFFFFF',
 }: BaseButtonProps) {
   return (
     <TouchableOpacity

@@ -15,7 +15,6 @@ export default function Header({ onMenuPress }: HeaderProps) {
       
       {/* Icône menu cliquable */}
       <TouchableOpacity onPress={() => {
-          console.log(access);
           onMenuPress(); 
         }}>
         <Image 
