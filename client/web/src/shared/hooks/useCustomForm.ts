@@ -4,17 +4,19 @@ import { ZodSchema } from "zod";
 import { useState } from "react";
 import { postRequest } from "@/shared/tools/api";
 
-interface UseCustomFormProps<T extends FieldValues> extends UseFormProps<T> {
+interface UseCustomFormProps<T extends FieldValues, R> extends UseFormProps<T> {
   schema: ZodSchema<T>;
   apiUrl: string;
+  onSuccess?: (data: R) => void;
 }
 
-const useCustomForm = <T extends FieldValues>({
+const useCustomForm = <T extends FieldValues, R>({
   schema,
   apiUrl,
+  onSuccess,
   defaultValues,
   ...formOptions
-}: UseCustomFormProps<T>) => {
+}: UseCustomFormProps<T, R>) => {
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -28,7 +30,7 @@ const useCustomForm = <T extends FieldValues>({
     setServerError(null);
 
     setIsLoading(true);
-    const { error } = await postRequest<{ message: string }, T>(apiUrl, data);
+    const { result, error } = await postRequest<R, T>(apiUrl, data);
     setIsLoading(false);
 
     if (error) {
@@ -38,6 +40,8 @@ const useCustomForm = <T extends FieldValues>({
     }
 
     form.reset();
+
+    if (onSuccess && result) onSuccess(result);
   });
 
   return { form, handleSubmit, isLoading, serverError };

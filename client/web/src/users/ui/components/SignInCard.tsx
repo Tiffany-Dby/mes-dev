@@ -13,11 +13,22 @@ import BaseInputGroup from "@/shared/ui/components/BaseInputGroup";
 import useCustomForm from "@/shared/hooks/useCustomForm";
 import { SignInSchema, SignInData } from "@/users/schemas/SignInSchema";
 import { MailIcon, EyeIcon, EyeOffIcon } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
+import { useAuth } from "@/users/context/AuthContext";
+import { SignInResponse } from "@/users/types/SignIn";
 
 const SignInCard = () => {
-  const [typePassword, setTypePassword] = useState("password");
+  const navigate = useNavigate();
+  const { onSignIn } = useAuth();
+  const [typePassword, setTypePassword] = useState<"text" | "password">(
+    "password"
+  );
+
+  const handleSignInSuccess = (userData: SignInResponse) => {
+    onSignIn(userData);
+    navigate(AppRoutes.account);
+  };
 
   const { form, handleSubmit, isLoading, serverError } = useCustomForm({
     schema: SignInSchema,
@@ -26,6 +37,7 @@ const SignInCard = () => {
       email: "",
       password: "",
     },
+    onSuccess: handleSignInSuccess,
   });
 
   const fields: {

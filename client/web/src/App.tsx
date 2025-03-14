@@ -5,8 +5,12 @@ import { AppRoutes } from "@/shared/types/Routes";
 import SignInCard from "@/users/ui/components/SignInCard";
 import Home from "@/shared/views/Home";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import Dashboard from "@/users/ui/components/Dashboard";
+import { useAuth } from "@/users/context/AuthContext";
+import PrivateRoutes from "./users/context/PrivateRoutes";
 
 const App = () => {
+  const { isAuthenticated } = useAuth();
   const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.025 });
 
   return (
@@ -31,6 +35,17 @@ const App = () => {
             }
           />
           <Route path={AppRoutes.home} element={<p>Home</p>} />
+
+          <Route
+            path={AppRoutes.account}
+            element={
+              <PrivateRoutes hasAccess={isAuthenticated}>
+                <div className="max-w-xl w-full mx-auto py-5 px-4">
+                  <Dashboard />
+                </div>
+              </PrivateRoutes>
+            }
+          />
         </Routes>
       </BaseLayout>
     </BrowserRouter>

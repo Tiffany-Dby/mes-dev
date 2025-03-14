@@ -11,4 +11,5 @@ export enum ApiRoutes {
   url = "http://localhost:8000",
   signUp = "/api/auth/register",
   signIn = "/api/auth/login",
+  me = "/api/auth/me",
 }
