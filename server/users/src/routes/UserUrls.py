@@ -30,7 +30,7 @@ def get(request, id: int) -> Optional[User]:
     return UsersControl.get(id)
 
 
-@router.post("/getByEmail/{email}", auth=JWTAuth())
+@router.get("/getByEmail/{email}", auth=JWTAuth())
 def get_by_email(request, email: str) -> Optional[User]:
     return UsersControl.get_by_email(email)
 
