@@ -1,4 +1,4 @@
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from users.src.services.UserService import UserService
 from utils.checkInfos import CheckInfos
 from ninja.errors import HttpError
@@ -66,11 +66,10 @@ class AuthControl:
             raise HttpError(401, "Invalid or expired refresh token")
 
     @staticmethod
-    def me(data):
+    def me(token):
         try:
-            token = data.token
-            refresh = RefreshToken(token)
-            user_id = refresh.payload["user_id"]
+            token = AccessToken(token)
+            user_id = token.payload["user_id"]
             user = UserService.get(user_id)
 
             if not user:

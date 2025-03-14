@@ -37,6 +37,6 @@ def refresh(request, data: TokenShema):
     return AuthControl.refresh(data)
 
 
-@router.post("/me", auth=JWTAuth())
-def me(request, data: TokenShema):
-    return AuthControl.me(data)
+@router.get("/me/{token}", auth=JWTAuth())
+def me(request, token):
+    return AuthControl.me(token)
