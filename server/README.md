@@ -1,4 +1,4 @@
-# 🛠️ Cyna Backend – Documentation API
+# 🛠️ Documentation API
 
 ## 📌 Introduction
 Ce projet est le backend du projet **Cyna**, une application permettant la gestion des utilisateurs via une API REST sécurisée avec **JWT**. Ce backend est développé avec **Django Ninja** et utilise **MySQL** comme base de données.
@@ -12,7 +12,6 @@ Ce projet est le backend du projet **Cyna**, une application permettant la gesti
 - **Django 4+**
 - **MySQL**
 - **Docker (optionnel)**
-- **Postman / cURL pour tester l’API**
 
 ### 2️⃣ Installation du projet
 Clone le repository et installe les dépendances :
