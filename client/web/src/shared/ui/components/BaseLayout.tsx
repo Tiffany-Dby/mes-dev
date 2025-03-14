@@ -1,6 +1,8 @@
 import logoCyna from "@/shared/assets/images/logo-cyna.svg";
 import MenuNavigation from "./MenuNavigation";
 import { ReactNode } from "react";
+import { Link } from "react-router";
+import { AppRoutes } from "@/shared/types/Routes";
 
 interface BaseLayoutProps {
   children?: ReactNode;
@@ -11,15 +13,15 @@ const BaseLayout = ({ children, isIntersecting }: BaseLayoutProps) => {
   return (
     <>
       <header
-        className={`fixed grid top-0 w-full bg-linear-90 from-primary-150 to-primary-100 text-primary-foreground transition-[background,box-shadow] duration-500${
+        className={`sticky z-20 grid top-0 w-full bg-linear-90 from-primary-150 to-primary-100 text-primary-foreground transition-[background,box-shadow] duration-500${
           isIntersecting ? " shadow-2xl bg-none bg-primary-150/75" : ""
         }`}
       >
         <div className="area-1/1 -z-10 backdrop-blur-md"></div>
         <div className="area-1/1 container mx-auto flex-between-center gap-2 py-3 px-4">
-          <div>
+          <Link to={AppRoutes.home}>
             <img src={logoCyna} alt="Logo Cyna" />
-          </div>
+          </Link>
           <MenuNavigation />
         </div>
       </header>
@@ -35,7 +37,11 @@ const BaseLayout = ({ children, isIntersecting }: BaseLayoutProps) => {
             <a href="https://github.com/kant1-18" target="_blank">
               Quentin Str
             </a>
-            , Mathéo Dlt {new Date().getFullYear()} - All rights reserved
+            ,{" "}
+            <a href="https://github.com/matheo-dlvt" target="_blank">
+              Mathéo Dlt
+            </a>{" "}
+            {new Date().getFullYear()} - All rights reserved
           </p>
         </div>
       </footer>

@@ -5,12 +5,14 @@ import {
   CollapsibleTrigger,
 } from "@/lib/components/ui/collapsible";
 import { AppRoutes } from "@/shared/types/Routes";
+import { useAuth } from "@/users/context/AuthContext";
 import { Fragment, useState } from "react";
 import { NavLink } from "react-router";
 
 interface MenuItem {
-  label: string;
+  label?: string;
   href?: AppRoutes;
+  button?: boolean;
   icon?: React.ComponentType<{ className?: string }>;
   submenu?: MenuItem[];
 }
@@ -18,11 +20,18 @@ interface MenuItem {
 interface MenuItemProps {
   item: MenuItem;
   depth?: number;
+  closeMenu: () => void;
 }
 
-const MenuItem = ({ item }: MenuItemProps) => {
+const MenuItem = ({ item, closeMenu }: MenuItemProps) => {
+  const { onSignOut } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
   const IconComponent = item.icon;
+
+  const handleClickSignOut = () => {
+    closeMenu();
+    onSignOut();
+  };
 
   return (
     <>
@@ -46,9 +55,20 @@ const MenuItem = ({ item }: MenuItemProps) => {
                   <NavLink
                     to={subitem.href}
                     className="ml-8 text-sm hover:text-accent-75 transition-colors duration-500"
+                    onClick={closeMenu}
                   >
                     {subitem.label}
                   </NavLink>
+                )}
+                {subitem.button && (
+                  <div className="ml-8">
+                    <Button
+                      className="p-0 bg-transparent text-sm hover:text-accent-75 hover:bg-transparent transition-colors duration-500 h-fit"
+                      onClick={handleClickSignOut}
+                    >
+                      Se déconnecter
+                    </Button>
+                  </div>
                 )}
               </Fragment>
             ))}
@@ -60,6 +80,7 @@ const MenuItem = ({ item }: MenuItemProps) => {
             <NavLink
               to={item.href}
               className={`flex items-center gap-2 font-medium hover:text-accent-75 transition-colors duration-500`}
+              onClick={closeMenu}
             >
               {IconComponent && <IconComponent className="size-4.5" />}
               {item.label}

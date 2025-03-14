@@ -20,8 +20,10 @@ import {
   ShapesIcon,
   ShoppingCartIcon,
 } from "lucide-react";
+import { useAuth } from "@/users/context/AuthContext";
 
 const MenuNavigation = () => {
+  const { isAuthenticated } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenChange = () => setIsOpen(!isOpen);
 
@@ -40,10 +42,23 @@ const MenuNavigation = () => {
       label: "Mon compte",
       icon: CircleUserRoundIcon,
       submenu: [
-        {
-          label: "Mon compte1",
-          href: AppRoutes.account,
-        },
+        ...(isAuthenticated
+          ? [
+              {
+                label: "Mon compte",
+                href: AppRoutes.account,
+              },
+              {
+                label: "Se déconnecter",
+                button: true,
+              },
+            ]
+          : [
+              {
+                label: "Se connecter",
+                href: AppRoutes.signIn,
+              },
+            ]),
       ],
     },
     {
@@ -70,7 +85,11 @@ const MenuNavigation = () => {
         <nav className="py-2 px-7 text-primary-150-foreground">
           <div className="flex flex-col gap-5">
             {menuItems.map((item) => (
-              <MenuItem key={item.label} item={item} />
+              <MenuItem
+                key={item.label}
+                item={item}
+                closeMenu={() => setIsOpen(false)}
+              />
             ))}
           </div>
         </nav>

@@ -232,7 +232,7 @@
 }
 
 header:has(.burger--open) {
-  padding-right: 15px;
+  /* padding-right: 15px; */
 }
 
 .sheet-dialog .active {
@@ -244,7 +244,7 @@ header:has(.burger--open) {
 }
 
 .burger {
-  @apply bg-transparent shadow-none flex items-center h-6 w-6 p-0 cursor-pointer md:hidden;
+  @apply bg-transparent shadow-none flex items-center h-6 w-6 p-0 cursor-pointer /*md:hidden*/;
 
   span,
   span::before,
