@@ -17,8 +17,8 @@ Ce projet est le backend du projet **Cyna**, une application permettant la gesti
 ### 2️⃣ Installation du projet
 Clone le repository et installe les dépendances :
 ```bash
-git clone https://github.com/votre-repo/cyna-backend.git
-cd cyna-backend
+git clone https://github.com/Tiffany-Dby/mes-dev
+cd mes-dev
 pip install -r requirements.txt
 ```
 
@@ -61,11 +61,11 @@ Authorization: Bearer <votre_access_token>
 - **Body :**
   ```json
   {
-    "firstName": "Quentin",
-    "lastName": "Stempfer",
-    "email": "quentin.stempfer@gmail.com",
-    "password": "Test123!",
-    "confirmPassword": "Test123!"
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string",
+    "password": "string",
+    "confirmPassword": "string"
   }
   ```
 - **Réponse :**
@@ -83,8 +83,8 @@ Authorization: Bearer <votre_access_token>
 - **Body :**
   ```json
   {
-    "email": "quentin.stempfer@gmail.com",
-    "password": "Test123!"
+    "email": "string",
+    "password": "string"
   }
   ```
 - **Réponse :**
@@ -93,10 +93,10 @@ Authorization: Bearer <votre_access_token>
     "access": "eyJhbGciOiJIUzI1NiIs...",
     "refresh": "eyJhbGciOiJIUzI1NiIs...",
     "user": {
-      "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Stempfer",
-      "email": "quentin.stempfer@gmail.com"
+      "id": int,
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string"
     }
   }
   ````
@@ -112,9 +112,9 @@ Authorization: Bearer <votre_access_token>
   ```json
   {
     "id": 1,
-    "firstName": "Quentin",
-    "lastName": "Stempfer",
-    "email": "quentin.stempfer@gmail.com"
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string"
   }
   ```
 
@@ -126,9 +126,9 @@ Authorization: Bearer <votre_access_token>
   ```json
   {
     "id": 1,
-    "firstName": "Quentin",
-    "lastName": "Stempfer",
-    "email": "quentin.stempfer@gmail.com"
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string"
   }
   ```
 
@@ -139,19 +139,19 @@ Authorization: Bearer <votre_access_token>
 - **Body :**
   ```json
   {
-    "id": 1,
-    "firstName": "Titi",
-    "lastName": "Toto",
-    "email": "titi.toto@exemple.com"
+    "id": int,
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string"
   }
   ```
 - **Exemple de réponse :**
   ```json
   {
-    "id": 1,
-    "firstName": "Titi",
-    "lastName": "Toto",
-    "email": "titi.toto@exemple.com"
+    "id": int,
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string"
   }
   ```
 
@@ -162,8 +162,8 @@ Authorization: Bearer <votre_access_token>
 - **Body :**
   ```json
   {
-    "id": 1,
-    "password": "Toto123!"
+    "id": int,
+    "password": "string"
   }
   ```
 
@@ -175,9 +175,6 @@ Authorization: Bearer <votre_access_token>
   ```json
   true  // Si l'utilisateur a été supprimé
   ```
-  ```json
-  false  // Si l'utilisateur n'a pas été supprimé
-  ```
 
 ---
 
@@ -186,19 +183,5 @@ Authorization: Bearer <votre_access_token>
 - **Authentification :** JWT
 - **Base de données :** MySQL
 - **Containerisation :** Docker
-- **Linting & Formatage :** Black, Flake8
+- **Linting & Formatage :** Black
 - **CI/CD :** SonarQube pour l’analyse statique du code
-
----
-
-## 🔥 **Améliorations Futures**
-✅ Ajouter une gestion des rôles utilisateurs  
-✅ Implémenter une récupération de mot de passe  
-✅ Supporter l’upload de fichiers et avatars  
-✅ Optimisation des requêtes SQL avec Django ORM  
-
----
-
-## 📬 **Contact & Contributeurs**
-📧 Contact : `contact@cyna.com`  
-👥 Projet développé par l'équipe **Cyna**
