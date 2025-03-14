@@ -6,6 +6,7 @@ interface BaseButtonProps {
   onPress: () => void;
   backgroundColor?: string;
   textColor?: string;
+  disabled?: boolean;
 }
 
 export default function BaseButton({

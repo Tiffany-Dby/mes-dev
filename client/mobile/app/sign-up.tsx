@@ -1,4 +1,4 @@
-import SignUpForm from "@/components/SignUpForm";
+import SignUpForm from "../components/SignUpForm";
 import { View } from "react-native";
 
 export default function SignUp() {
@@ -8,8 +8,7 @@ export default function SignUp() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-      }}
-    >
+      }}>
       <SignUpForm />
     </View>
   );

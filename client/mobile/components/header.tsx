@@ -1,18 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import useAuth from '@/hooks/useAuth';
 
 interface HeaderProps {
   onMenuPress: () => void;
 }
 
 export default function Header({ onMenuPress }: HeaderProps) {
+  const { access } = useAuth();
+
   return (
     <View style={styles.header}>
       <Image source={require('../assets/images/logo-cyna-c.png')} style={styles.logo} />
       
       {/* Icône menu cliquable */}
       <TouchableOpacity onPress={() => {
-          console.log("Menu button clicked!");
+          console.log(access);
           onMenuPress(); 
         }}>
         <Image 

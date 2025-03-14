@@ -1,11 +1,11 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Platform } from 'react-native';
 import BaseInput from '../components/BaseInput';
 import PasswordInput from '../components/PasswordInput';
 import BaseButton from '../components/BaseButton';
 
 export default function Profil() {
     return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.title}>Profil</Text>
             <View style={styles.container}>
                 <Text style={styles.subtitle}>Informations personnelles</Text>
@@ -22,7 +22,7 @@ export default function Profil() {
                 <BaseButton title="Modifier" onPress={() => {}} />
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -32,12 +32,21 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#f8f9fa',
         borderRadius: 10,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 4,
-        elevation: 3,
         marginBottom: 10,
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOpacity: 0.1,
+                shadowOffset: { width: 0, height: 2 },
+                shadowRadius: 4,
+            },
+            android: {
+                elevation: 3,
+            },
+            web: {
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            },
+        }),
     },
     title: {
         fontSize: 24,
@@ -50,5 +59,5 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginBottom: 10,
         color: '#555',
-    }
-  })
+    },
+});

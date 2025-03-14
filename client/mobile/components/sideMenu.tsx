@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Animated, StyleSheet, Dimensions, Alert } from 'react-native';
+import React, { useRef, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Animated, StyleSheet, Dimensions, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
+import useAuth from '@/hooks/useAuth';
 
 const { width, height } = Dimensions.get('window');
 
@@ -11,7 +12,18 @@ interface SideMenuProps {
 
 export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
   const translateX = useRef(new Animated.Value(width)).current;
-  const router = useRouter(); // Hook pour naviguer
+  const router = useRouter();
+  const { access, logout } = useAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!access);
+
+  useEffect(() => {
+    if (isVisible) {
+      setTimeout(() => {
+        console.log("Vérification de l'authentification (mise à jour)", access);
+        setIsAuthenticated(!!access);
+      }, 50);
+    }
+  }, [isVisible, access]);
 
   useEffect(() => {
     Animated.timing(translateX, {
@@ -21,16 +33,9 @@ export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
     }).start();
   }, [isVisible]);
 
-  const navigateTo = (path: '/' | '/profil' | '/mySubsriptions') => {
+  const navigateTo = (path: "/" | "/sign-in" | "/mySubscriptions" | "/profil") => {
     router.push(path);
     onClose();
-  };
-
-  const handleLogout = () => {
-    console.log("Déconnexion...");
-    Alert.alert("Déconnexion", "Vous avez été déconnecté !");
-    onClose();
-    // TODO: Ajouter la logique pour supprimer le token et rediriger
   };
 
   return (
@@ -39,22 +44,38 @@ export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
 
       <View style={styles.menuContent}>
         <Text style={styles.menuTitle}>Menu</Text>
+        
         <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/')}>
           <Text style={styles.menuText}>🏠 Accueil</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/profil')}>
-          <Text style={styles.menuText}>👤 Mon profil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/mySubsriptions')}>
-          <Text style={styles.menuText}>📝 Mes abonnements</Text>
-        </TouchableOpacity>
+
+        {isAuthenticated && (
+          <View>
+            <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/profil')}>
+              <Text style={styles.menuText}>👤 Mon profil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/mySubscriptions')}>
+              <Text style={styles.menuText}>📝 Mes abonnements</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         <TouchableOpacity style={styles.menuItem} onPress={onClose}>
           <Text style={[styles.menuText, { color: 'red' }]}>❌ Fermer</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.logoutText}>🚪 Se Déconnecter</Text>
-        </TouchableOpacity>
+        <View>
+          {isAuthenticated ? (
+            <TouchableOpacity style={styles.logoutButton} onPress={logout}>
+              <Text style={styles.logoutText}>🚪 Se Déconnecter</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.loginButton} onPress={() => navigateTo('/sign-in')}>
+              <Text style={styles.loginText}>🔑 Se Connecter</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+
       </View>
     </Animated.View>
   );
@@ -68,12 +89,21 @@ const styles = StyleSheet.create({
     width: width * 0.75,
     height: height - 80,
     backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: -2, height: 0 },
-    shadowRadius: 5,
-    elevation: 5,
     flexDirection: 'row',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowOffset: { width: -2, height: 0 },
+        shadowRadius: 5,
+      },
+      android: {
+        elevation: 5,
+      },
+      web: {
+        boxShadow: "-2px 0px 5px rgba(0, 0, 0, 0.2)",
+      },
+    }),
   },
   closeArea: {
     flex: 1,
@@ -98,12 +128,24 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     marginTop: 30,
-    paddingVertical: 10,
+    paddingVertical: 12,
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 8,
     backgroundColor: 'red',
   },
   logoutText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  loginButton: {
+    marginTop: 30,
+    paddingVertical: 12,
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: 'green',
+  },
+  loginText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',

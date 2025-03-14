@@ -1,5 +1,4 @@
-import MySubscriptionsScreen from "./mySubsriptions";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 export default function Index() {
   return (
@@ -10,7 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <MySubscriptionsScreen />
+      <Text>Page en cours de construction</Text>
     </View>
   );
 }
