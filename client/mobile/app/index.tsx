@@ -1,4 +1,5 @@
-import { View, Text } from "react-native";
+import SignInForm from "@/components/SignInForm";
+import { View } from "react-native";
 
 export default function Index() {
   return (
@@ -9,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Page en cours de construction</Text>
+      <SignInForm />
     </View>
   );
 }

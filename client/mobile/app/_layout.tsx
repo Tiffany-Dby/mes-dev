@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack } from 'expo-router';
+import { Stack, usePathname } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
 import Header from '@/components/Header';
 import SideMenu from '@/components/SideMenu';
@@ -7,6 +7,7 @@ import SideMenu from '@/components/SideMenu';
 
 export default function Layout() {
   const [menuVisible, setMenuVisible] = useState(false);
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setMenuVisible((prev) => !prev);
@@ -14,7 +15,7 @@ export default function Layout() {
 
   return (
     <View style={styles.container}>
-      <Header onMenuPress={toggleMenu} /> {/* <-- Passe la fonction au Header */}
+      {pathname === "/" ? null : <Header onMenuPress={toggleMenu} />}
       <Stack screenOptions={{ headerShown: false }} />
       <SideMenu isVisible={menuVisible} onClose={toggleMenu} />
     </View>

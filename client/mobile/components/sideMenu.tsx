@@ -33,7 +33,7 @@ export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
     }).start();
   }, [isVisible]);
 
-  const navigateTo = (path: "/" | "/sign-in" | "/mySubscriptions" | "/profil") => {
+  const navigateTo = (path: "/" | "/mySubscriptions" | "/profil") => {
     router.push(path);
     onClose();
   };
@@ -49,32 +49,20 @@ export default function SideMenu({ isVisible, onClose }: SideMenuProps) {
           <Text style={styles.menuText}>🏠 Accueil</Text>
         </TouchableOpacity>
 
-        {isAuthenticated && (
-          <View>
-            <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/profil')}>
-              <Text style={styles.menuText}>👤 Mon profil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/mySubscriptions')}>
-              <Text style={styles.menuText}>📝 Mes abonnements</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/profil')}>
+          <Text style={styles.menuText}>👤 Mon profil</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigateTo('/mySubscriptions')}>
+          <Text style={styles.menuText}>📝 Mes abonnements</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem} onPress={onClose}>
           <Text style={[styles.menuText, { color: 'red' }]}>❌ Fermer</Text>
         </TouchableOpacity>
 
-        <View>
-          {isAuthenticated ? (
-            <TouchableOpacity style={styles.logoutButton} onPress={logout}>
-              <Text style={styles.logoutText}>🚪 Se Déconnecter</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity style={styles.loginButton} onPress={() => navigateTo('/sign-in')}>
-              <Text style={styles.loginText}>🔑 Se Connecter</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+        <TouchableOpacity style={styles.logoutButton} onPress={() => { logout(); onClose(); }}>
+          <Text style={styles.logoutText}>🚪 Se Déconnecter</Text>
+        </TouchableOpacity>
 
       </View>
     </Animated.View>

@@ -21,7 +21,8 @@
         try {
             const storedToken = await storage.getItem("userToken");
             if (storedToken) {
-            setToken(JSON.parse(storedToken)); // ✅ Convertir JSON en string
+            setToken(JSON.parse(storedToken)); 
+            
             }
         } catch (error) {
             console.error("Erreur lors de la récupération du token :", error);
@@ -53,7 +54,7 @@
         setToken(result.access);
 
         // ✅ Rediriger après connexion
-        router.push("/");
+        router.push("/profil");
     };
 
     // 🔹 Fonction de déconnexion
@@ -65,7 +66,7 @@
             await SecureStore.deleteItemAsync("userToken");
         }
         setToken(null);
-        router.push("/sign-in"); // 🔥 Redirige vers la page de connexion
+        router.push("/"); 
         } catch (error) {
         console.error("Erreur lors de la déconnexion :", error);
         }
