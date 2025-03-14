@@ -36,11 +36,21 @@ class UsersControl:
 
     @staticmethod
     def update_password(data) -> Optional[User]:
-        if not CheckInfos.is_valid_id(data.id) or not CheckInfos.is_valid_password(
-            data.password
-        ):
-            raise HttpError(400, "Invalid password")
-        user = UserService.update_password(data.id, data.password)
+        if not CheckInfos.is_valid_id(data.id):
+            raise HttpError(500, "Invalid id")
+
+        if not UserService.check_password(data.id, data.previousPassword):
+            raise HttpError(400, "Invalid privious password")
+
+        if not CheckInfos.is_valid_password(
+            data.newPassword
+        ) or not CheckInfos.is_valid_password(data.confirmNewPassword):
+            raise HttpError(400, "Invalid new passwords")
+
+        if not data.newPassword == data.confirmNewPassword:
+            raise HttpError(400, "Passwords doesn't match")
+
+        user = UserService.update_password(data.id, data.newPassword)
         return user.to_json() if user else HttpError(500, "An error occurred")
 
     @staticmethod
