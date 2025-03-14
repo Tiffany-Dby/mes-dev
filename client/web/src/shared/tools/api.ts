@@ -2,13 +2,15 @@ import { FetchConfig, FetchMethod } from "@/shared/types/Api";
 import { ApiRoutes } from "../types/Routes";
 
 const getRequest = async <T>(
-  url: string
+  url: string,
+  token?: string
 ): Promise<{ result: T; error: string | null; status: number }> => {
   const config = {
     method: FetchMethod.GET,
     headers: {
       "Content-type": "application/json",
       Accept: "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
   };
 
@@ -17,13 +19,15 @@ const getRequest = async <T>(
 
 const postRequest = async <T, B extends object>(
   url: string,
-  body: B
+  body: B,
+  token?: string
 ): Promise<{ result: T; error: string | null; status: number }> => {
   const config: FetchConfig = {
     method: FetchMethod.POST,
     headers: {
       "Content-type": "application/json",
       Accept: "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
     body: JSON.stringify(body),
   };

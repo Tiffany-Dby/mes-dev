@@ -22,8 +22,12 @@ import { useState } from "react";
 import { Link } from "react-router";
 
 const SignUpCard = () => {
-  const [typePassword, setTypePassword] = useState("password");
-  const [typeConfirmPassword, setTypeConfirmPassword] = useState("password");
+  const [typePassword, setTypePassword] = useState<"text" | "password">(
+    "password"
+  );
+  const [typeConfirmPassword, setTypeConfirmPassword] = useState<
+    "text" | "password"
+  >("password");
 
   const { form, handleSubmit, isLoading, serverError } = useCustomForm({
     schema: SignUpSchema,
