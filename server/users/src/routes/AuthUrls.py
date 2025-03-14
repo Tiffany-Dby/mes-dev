@@ -18,7 +18,7 @@ class LoginSchema(Schema):
     password: str
 
 
-class LogoutSchema(Schema):
+class RefreshSchema(Schema):
     refresh: str
 
 
@@ -30,3 +30,8 @@ def register(request, data: RegisterSchema):
 @router.post("/login")
 def login(request, data: LoginSchema):
     return AuthControl.login(data)
+
+
+@router.post("/refresh", auth=JWTAuth())
+def refresh(request, data: RefreshSchema):
+    return AuthControl.refresh(data)

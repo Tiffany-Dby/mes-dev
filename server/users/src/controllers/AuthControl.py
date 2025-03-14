@@ -42,3 +42,25 @@ class AuthControl:
                 "user": user.to_json(),
             }
         raise HttpError(401, "email or password invalid")
+
+    @staticmethod
+    def refresh(data):
+        try:
+            token = data.refresh
+            refresh = RefreshToken(token)
+            print("token ok")
+            user_id = refresh.payload["user_id"]
+            user = UserService.get(user_id)
+
+            if not user:
+                raise HttpError(404, "User not found")
+
+            new_refresh = RefreshToken.for_user(user)
+            return {
+                "access": str(new_refresh.access_token),
+                "refresh": str(new_refresh),
+            }
+
+        except Exception as e:
+            print(f"Token refresh error: {e}")
+            raise HttpError(401, "Invalid or expired refresh token")
