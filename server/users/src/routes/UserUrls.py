@@ -22,7 +22,9 @@ class UpdateSchema(Schema):
 
 class UpdatePasswordSchema(Schema):
     id: int
-    password: str
+    previousPassword: str
+    newPassword: str
+    confirmNewPassword: str
 
 
 @router.get("/get/{id}", auth=JWTAuth())

@@ -68,8 +68,6 @@ class AuthControl:
     @staticmethod
     def me(token):
         try:
-            token = token.split(" ")[1]
-            print(token)
             token = AccessToken(token)
             user_id = token.payload["user_id"]
             user = UserService.get(user_id)

@@ -39,4 +39,4 @@ def refresh(request, data: TokenShema):
 
 @router.get("/me", auth=JWTAuth())
 def me(request):
-    return AuthControl.me(request.headers.get("Authorization"))
+    return AuthControl.me(request.headers.get("Authorization").split(" ")[1])
